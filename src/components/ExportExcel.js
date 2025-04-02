@@ -27,7 +27,7 @@ export function ExportExcel() {
   return (
     <div>
       <button className="export-excel-button" onClick={handleExport}>
-        אקסל הודעות
+        ייצוא לאקסל
       </button>
     </div>
   );

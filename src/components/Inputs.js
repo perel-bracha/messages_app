@@ -56,8 +56,7 @@ export const SelectInput = ({
   <div>
     <label>
       {label}:
-      <select name={name} value={value} onChange={onChange} required={required}>
-        <option value="">בחר</option>
+      <select name={name} value={value} onChange={onChange} required={required} plac>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}

@@ -106,9 +106,6 @@ h1 {
 /* עיצוב כפתור ייצוא האקסל */
 /* עיצוב כפתור ייצוא האקסל */
 .export-excel-button {
-  position: absolute;
-  top: 20px;
-  right: 50px;
   padding: 5px 15px; /* כפתור צר יותר */
   background-color: #28a745;
   color: white;
@@ -118,6 +115,7 @@ h1 {
   cursor: pointer;
   transition: background-color 0.3s ease;
   width: 120px; /* רוחב קבוע לכפתור */
+  font-size: larger;
 }
 
 .export-excel-button:hover {
@@ -140,4 +138,170 @@ form {
   position: relative; /* כדי שהכפתור יישאר בתוך הקונטיינר */
   padding-top: 60px; /* מרווח כדי למנוע חפיפה עם הכפתור */
 
+}
+/* עיצוב כללי לטבלה */
+/*  */
+
+/* עיצוב כללי */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  color: #333;
+  direction: rtl; /* מימין לשמאל */
+  text-align: right;
+}
+
+/* עיצוב הניווט */
+/* עיצוב הניווט */
+nav {
+  background-color: #007bff;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-around; /* ריווח אחיד בין הקישורים */
+  align-items: center;
+  border-bottom: 2px solid #0056b3;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 20px; /* ריווח פנימי גדול יותר */
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  flex: 1; /* כל קישור יתפוס מקום שווה */
+}
+
+nav a:hover {
+  background-color: #0056b3;
+}
+
+nav a.active {
+  background-color: #0056b3;
+}
+
+/* עיצוב הטבלאות */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+  background-color: #007bff;
+  color: white;
+}
+
+thead th {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+tbody tr {
+  border-bottom: 1px solid #ddd;
+  transition: background-color 0.3s ease;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+  background-color: #e9ecef;
+}
+
+td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  word-wrap: break-word;
+}
+
+td a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+td a:hover {
+  text-decoration: underline;
+}
+
+/* עיצוב כותרות */
+h1, h2, h3 {
+  text-align: center;
+  margin: 20px 0;
+  color: #333;
+}
+
+/* עיצוב הודעת 404 */
+.not-found {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.not-found h1 {
+  font-size: 48px;
+  color: #dc3545;
+}
+
+.not-found p {
+  font-size: 18px;
+  color: #666;
+}
+
+.screen{
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    overflow: hidden; /* Prevent scrolling */
+    display: flex; /* Use flexbox to manage content layout */
+    flex-direction: column; /* Stack items vertically */
+}
+.major-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    height: 20%;
+    border-bottom: 5px solid #376143; /* ✅ מוסיף קו מפריד בין המגמות */
+    padding-bottom: 10px; /* ✅ יוצר מרווח לפני השורה הבאה */
+}
+.major-name {
+    width: 200px;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    margin-left: 20px; /* ✅ מוסיף רווח בין שם המגמה להודעות */
+}
+
+.major-messages{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding-left: 20px;
+}
+.message-card{
+    width: 150px;
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 2px solid #333;
+    border-radius: 8px;
 }

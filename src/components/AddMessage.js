@@ -151,7 +151,6 @@ const AddMessage = ({ existingMessage = null }) => {
   };
 
   return (<>
-  <ExportExcel/>
     <h1>הוספת הודעה</h1>
     <form onSubmit={handleSubmit}>
       <DateInput
