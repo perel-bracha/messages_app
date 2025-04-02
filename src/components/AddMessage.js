@@ -204,7 +204,7 @@ const AddMessage = ({ existingMessage = null }) => {
         onChange={handleFileChange}
       />
       <button type="submit">
-        {existingMessage ? "Update Message" : "Add Message"}
+        {existingMessage ? "עדכון" : "שמור"}
       </button>
     </form></>
   );

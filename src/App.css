@@ -88,4 +88,56 @@ button:hover {
 
 .background-selector input[type="radio"]:checked + label img {
   border-color: #007bff;
+}/* עיצוב כפתור ייצוא האקסל */
+
+
+
+
+.export-excel-button:active {
+  background-color: #1e7e34;
+}/* עיצוב הכותרת */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+/* עיצוב כפתור ייצוא האקסל */
+/* עיצוב כפתור ייצוא האקסל */
+.export-excel-button {
+  position: absolute;
+  top: 20px;
+  right: 50px;
+  padding: 5px 15px; /* כפתור צר יותר */
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px; /* גודל טקסט קטן יותר */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 120px; /* רוחב קבוע לכפתור */
+}
+
+.export-excel-button:hover {
+  background-color: #218838;
+}
+
+.export-excel-button:active {
+  background-color: #1e7e34;
+}
+
+/* עיצוב הקונטיינר של הטופס */
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative; /* כדי שהכפתור יישאר בתוך הקונטיינר */
+  padding-top: 60px; /* מרווח כדי למנוע חפיפה עם הכפתור */
+
 }

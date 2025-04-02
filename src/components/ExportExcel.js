@@ -23,9 +23,12 @@ export function ExportExcel() {
       console.error("Failed to download Excel file:", error);
     }
   };
+
   return (
     <div>
-      <button onClick={handleExport}>אקסל הודעות</button>
+      <button className="export-excel-button" onClick={handleExport}>
+        אקסל הודעות
+      </button>
     </div>
   );
 }
