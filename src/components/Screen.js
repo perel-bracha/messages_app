@@ -36,46 +36,69 @@ export function Screen({ screenNum }) {
   }, [majors]);
 
   return (
-    <div
-      className="screen"
-      style={{
-        backgroundImage: `url('/wooden-fence-with-pattern-tree-bark copy 2.jpg')`,
-        backgroundSize: "cover", // Ensure the image covers the container proportionally
-        backgroundRepeat: "no-repeat", // Prevent repeating the image
-      }}
-    >
-      {majors.map((major, index) => (
-        <div className="major-row" key={major.major_id}>
-          <div className="major-name" style={{backgroundColor: colors[index % 2]}}>{major.major_name}</div>
-          <div className="major-messages">
-            {messagesByMajor[major.major_id]?.map((msg) => (
-              <div
-              className="message-card"
-                key={msg.id}
-                style={{                 
-                  backgroundImage: `url(${msg.background_url})`,
-                }}
-              >
-                <div style={{ fontSize: "12px", fontWeight: "bold" }}>
-                  {msg.study_year_name}
-                </div>
-                <div style={{ fontSize: "14px", fontWeight: "bold" }}>
-                  {msg.message_text}
-                </div>
+    <>
+      <div style={{ position: "absolute", top: "10px", left: "10px" }}>
+        <button
+          onClick={() => (window.location.href = "/")}
+          style={{
+            padding: "5px 10px",
+            fontSize: "14px",
+            backgroundColor: "#376143",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+        >
+          דף הבית
+        </button>
+      </div>
+      <div
+        className="screen"
+        style={{
+          backgroundImage: `url('/wooden-fence-with-pattern-tree-bark copy 2.jpg')`,
+          backgroundSize: "cover", // Ensure the image covers the container proportionally
+          backgroundRepeat: "no-repeat", // Prevent repeating the image
+        }}
+      >
+        {majors.map((major, index) => (
+          <div className="major-row" key={major.major_id}>
+            <div
+              className="major-name"
+              style={{ backgroundColor: colors[index % 2] }}
+            >
+              {major.major_name}
+            </div>
+            <div className="major-messages">
+              {messagesByMajor[major.major_id]?.map((msg) => (
                 <div
+                  className="message-card"
+                  key={msg.id}
                   style={{
-                    fontSize: "12px",
-                    fontWeight: "bold",
-                    alignSelf: "flex-end",
+                    backgroundImage: `url(${msg.background_url})`,
                   }}
                 >
-                  {new Date(msg.destination_date).toLocaleDateString()}
+                  <div style={{ fontSize: "12px", fontWeight: "bold" }}>
+                    {msg.study_year_name}
+                  </div>
+                  <div style={{ fontSize: "14px", fontWeight: "bold" }}>
+                    {msg.message_text}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                      alignSelf: "flex-end",
+                    }}
+                  >
+                    {new Date(msg.destination_date).toLocaleDateString()}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
   );
 }
