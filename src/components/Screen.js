@@ -19,7 +19,7 @@ export function Screen({ screenNum }) {
         for (const major of majors) {
           try {
             const response = await fetch(
-              `${process.env.REACT_APP_SERVER_URL}/majors/${major.major_id}/messages`
+              `${process.env.REACT_APP_SERVER_URL}/majors/${major.major_id}/messages/relevant`
             );
             newMessages[major.major_id] = await response.json();
           } catch (error) {

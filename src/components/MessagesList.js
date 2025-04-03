@@ -33,7 +33,7 @@ return (
                         <td>{message.study_year_name}</td>
                         <td>{message.message_text}</td>
                         <td>
-                            <a href={message.background_url} target="_blank" rel="noopener noreferrer">
+                            <a href={message.image_url} target="_blank" rel="noopener noreferrer">
                                 {message.image_url}
                             </a>
                         </td>
