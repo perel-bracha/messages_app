@@ -81,9 +81,7 @@ const AddMessage = ({ existingMessage = null }) => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      console.log(imageUrl);
-      setFormData({ ...formData, image_path: imageUrl });
+      setFormData({ ...formData, image_path: file }); // שמירת הקובץ במקום ה-URL
     }
   };
 
@@ -93,12 +91,24 @@ const AddMessage = ({ existingMessage = null }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const formDataToSend = new FormData();
-    // Object.entries(formData).forEach(([key, value]) => {
-    //   formDataToSend.append(key, value);
-    // });
-    console.log(formData);
-    
+    const formDataToSend = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      if (
+        key === "major_id" ||
+        key === "study_year_id" ||
+        key === "background_id"
+      ) {
+        // המרת ערכים למספרים (אם הם לא NaN או null)
+        const numberValue = parseInt(value, 10);
+        console.log(numberValue);
+
+        formDataToSend.append(key, isNaN(numberValue) ? "" : numberValue);
+      } else {
+        formDataToSend.append(key, value);
+      }
+    });
+
+    console.log(formDataToSend);
 
     const url = existingMessage
       ? `${process.env.REACT_APP_SERVER_URL}/messages/${existingMessage.id}`
@@ -110,9 +120,12 @@ const AddMessage = ({ existingMessage = null }) => {
       major_id: parseInt(formData.major_id, 10),
       study_year_id: parseInt(formData.study_year_id, 10),
       message_text: formData.message_text,
-      image_path: formData.image_path ? formData.image_path.name : null,
-      background_id: parseInt(formData.background_id, 10),
+      image_path: formDataToSend.image_path ? formDataToSend.image_path : null,
+      background_id: formData.background_id
+        ? parseInt(formData.background_id, 10)
+        : null,
     };
+
     console.log(JSON.stringify(transformedFormData));
     console.log(url, method);
 
@@ -120,7 +133,7 @@ const AddMessage = ({ existingMessage = null }) => {
       method: method,
       body: JSON.stringify(transformedFormData),
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json", // חשוב מאוד לציין את ה-Content-Type
       },
     })
       .then((response) => {
@@ -162,12 +175,12 @@ const AddMessage = ({ existingMessage = null }) => {
       <h1>הוספת הודעה</h1>
       <form onSubmit={handleSubmit}>
         <DateInput
-        label="ליום"
-        name="destination_date"
-        value={formData.destination_date}
-        onChange={handleChange}
-        required
-      />
+          label="ליום"
+          name="destination_date"
+          value={formData.destination_date}
+          onChange={handleChange}
+          required
+        />
         <SelectInput
           label="מגמה"
           name="major_id"
