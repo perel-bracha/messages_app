@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ExportExcel } from "./ExportExcel";
+import { hebrewDate } from "./Screen";
 
 export function MessagesList() {
   const [messages, setMessages] = useState([]);
@@ -27,8 +28,8 @@ return (
             <tbody>
                 {messages.map((message) => (
                     <tr key={message.message_id}>
-                        <td>{message.message_date}</td>
-                        <td>{new Date(message.destination_date).toLocaleDateString()}</td>
+                        <td>{message.message_date} {hebrewDate(message.message_date)}</td>
+                        <td>{new Date(message.destination_date).toLocaleDateString()}   {hebrewDate(message.destination_date)}</td>
                         <td>{message.major_name}</td>
                         <td>{message.study_year_name}</td>
                         <td>{message.message_text}</td>

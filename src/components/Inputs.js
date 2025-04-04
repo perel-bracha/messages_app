@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { HDate } from "@hebcal/core";
+
 
 export const TextAreaInput = ({
   label,
@@ -22,6 +24,7 @@ export const TextAreaInput = ({
   </div>
 );
 
+
 // Subcomponent for date input
 export const DateInput = ({
   label,
@@ -29,20 +32,29 @@ export const DateInput = ({
   value,
   onChange,
   required = false,
-}) => (
-  <div>
-    <label>
-      {label}:
-      <input
-        type="date"
-        name={name}
-        value={value}
-        onChange={onChange}
-        required={required}
-      />
-    </label>
-  </div>
-);
+}) => {
+  const hebrewDate = value ? new HDate(new Date(value)).renderGematriya() : "";
+
+  return (
+    <div>
+      <label>
+        {label}:
+        <input
+          type="date"
+          name={name}
+          value={value}
+          onChange={onChange}
+          required={required}
+        />
+      </label>
+      {value && (
+        <p style={{ marginTop: "10px", color: "blue", fontWeight: "bold" }}>
+          תאריך עברי: {hebrewDate}
+        </p>
+      )}
+    </div>
+  );
+};
 
 // Subcomponent for select dropdown
 export const SelectInput = ({

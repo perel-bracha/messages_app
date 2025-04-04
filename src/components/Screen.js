@@ -78,21 +78,12 @@ export function Screen({ screenNum }) {
                     backgroundImage: `url(${msg.background_url})`,
                   }}
                 >
-                  <div style={{ fontSize: "12px", fontWeight: "bold" }}>
-                    {msg.study_year_name}
-                  </div>
-                  <div style={{ fontSize: "14px", fontWeight: "bold" }}>
-                    {msg.message_text}
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "12px",
-                      fontWeight: "bold",
-                      alignSelf: "flex-end",
-                    }}
-                  >
-                    {new Date(msg.destination_date).toLocaleDateString()}
-                  </div>
+                  <div className="message-date">
+                    {hebrewDate(msg.destination_date)}
+                    {/* {new HDate(new Date(msg.destination_date)).renderGematriya()} */}
+                  </div>{" "}
+                  <div className="message-year">לשנה: {msg.study_year_name}</div>
+                  <div className="message-text">{msg.message_text}</div>
                 </div>
               ))}
             </div>
@@ -101,4 +92,47 @@ export function Screen({ screenNum }) {
       </div>
     </>
   );
+}
+export function hebrewDate(date) {
+  return new Intl.DateTimeFormat("he-IL-u-ca-hebrew", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+  })
+    .format(new Date(date))
+    .replace(/\d+/g, (day) => {
+      const hebrewDays = [
+        "א",
+        "ב",
+        "ג",
+        "ד",
+        "ה",
+        "ו",
+        "ז",
+        "ח",
+        "ט",
+        "י",
+        "יא",
+        "יב",
+        "יג",
+        "יד",
+        "טו",
+        "טז",
+        "יז",
+        "יח",
+        "יט",
+        "כ",
+        "כא",
+        "כב",
+        "כג",
+        "כד",
+        "כה",
+        "כו",
+        "כז",
+        "כח",
+        "כט",
+        "ל",
+      ];
+      return hebrewDays[day - 1];
+    });
 }

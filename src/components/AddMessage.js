@@ -79,7 +79,12 @@ const AddMessage = ({ existingMessage = null }) => {
   };
 
   const handleFileChange = (e) => {
-    setFormData({ ...formData, image_path: e.target.files[0] });
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      console.log(imageUrl);
+      setFormData({ ...formData, image_path: imageUrl });
+    }
   };
 
   const handleBackgroundChange = (e) => {
@@ -92,6 +97,8 @@ const AddMessage = ({ existingMessage = null }) => {
     // Object.entries(formData).forEach(([key, value]) => {
     //   formDataToSend.append(key, value);
     // });
+    console.log(formData);
+    
 
     const url = existingMessage
       ? `${process.env.REACT_APP_SERVER_URL}/messages/${existingMessage.id}`
@@ -150,62 +157,62 @@ const AddMessage = ({ existingMessage = null }) => {
       });
   };
 
-  return (<>
-    <h1>הוספת הודעה</h1>
-    <form onSubmit={handleSubmit}>
-      <DateInput
+  return (
+    <>
+      <h1>הוספת הודעה</h1>
+      <form onSubmit={handleSubmit}>
+        <DateInput
         label="ליום"
         name="destination_date"
         value={formData.destination_date}
         onChange={handleChange}
         required
       />
-      <SelectInput
-        label="מגמה"
-        name="major_id"
-        value={formData.major_id}
-        onChange={handleChange}
-        options={majors.map((major) => ({
-          value: major.major_id,
-          label: major.major_name,
-        }))}
-        required
-      />
-      <SelectInput
-        label="שנה"
-        name="study_year_id"
-        value={formData.study_year_id}
-        onChange={handleChange}
-        options={years.map((year) => ({
-          value: year.study_year_id,
-          label: year.study_year_name,
-        }))}
-        required
-      />
-      <TextAreaInput
-        label="גוף ההודעה"
-        name="message_text"
-        value={formData.message_text}
-        onChange={handleChange}
-      />
-      {/* באיזה קבצים תומך */}
+        <SelectInput
+          label="מגמה"
+          name="major_id"
+          value={formData.major_id}
+          onChange={handleChange}
+          options={majors.map((major) => ({
+            value: major.major_id,
+            label: major.major_name,
+          }))}
+          required
+        />
+        <SelectInput
+          label="שנה"
+          name="study_year_id"
+          value={formData.study_year_id}
+          onChange={handleChange}
+          options={years.map((year) => ({
+            value: year.study_year_id,
+            label: year.study_year_name,
+          }))}
+          required
+        />
+        <TextAreaInput
+          label="גוף ההודעה"
+          name="message_text"
+          value={formData.message_text}
+          onChange={handleChange}
+        />
+        {/* באיזה קבצים תומך */}
 
-      <BackgroundSelector
-        label="רקע"
-        name="background_id"
-        value={formData.background_id}
-        onChange={handleBackgroundChange}
-        backgrounds={backgrounds}
-      />
-      <DragAndDropFileInput
-        label="העלאת תמונה"
-        name="image_path"
-        onChange={handleFileChange}
-      />
-      <button type="submit">
-        {existingMessage ? "עדכון" : "שמור"}
-      </button>
-    </form></>
+        <BackgroundSelector
+          label="רקע"
+          name="background_id"
+          value={formData.background_id}
+          onChange={handleBackgroundChange}
+          backgrounds={backgrounds}
+        />
+        <DragAndDropFileInput
+          label="העלאת תמונה"
+          name="image_path"
+          onChange={handleFileChange}
+        />
+        <button type="submit">{existingMessage ? "עדכון" : "שמור"}</button>
+      </form>
+    </>
   );
 };
 

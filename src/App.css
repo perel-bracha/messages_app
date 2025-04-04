@@ -291,18 +291,57 @@ h1, h2, h3 {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
-    padding-left: 20px;
+    padding-left: 20px;;
 }
-.message-card{
-    width: 150px;
-    height: 150px;
-    background-size: cover;
-    background-position: center;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: center;
-    /* border: 2px solid #333; */
-    /* border-radius: 8px; */
+.message-card {
+  width: 160px;
+  height: 160px;
+  background-size: contain; /* התמונה תוצג בשלמותה */
+  background-repeat: no-repeat; /* ללא חזרה של התמונה */
+  background-position: center;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* ממרכז את התוכן אנכית */
+  align-items: center; /* ממרכז את התוכן אופקית */
+  text-align: center;
+  position: relative; /* מאפשר מיקום יחסי של האלמנטים */
+  overflow: hidden; /* מונע גלילה פנימית */
+}
+
+.message-date {
+  font-size: 12px;
+  font-weight: bold;
+  position: absolute; /* מיקום יחסי לכרטיס */
+  top: 5px;
+  right: 5px;
+  background-color: rgba(255, 255, 255, 0.8); /* רקע לבן שקוף */
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+.message-year {
+  font-size: 12px;
+  font-weight: bold;
+  position: absolute; /* מיקום יחסי לכרטיס */
+  top: 25px;
+  right: 5px;
+  background-color: rgba(255, 255, 255, 0.8); /* רקע לבן שקוף */
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+.message-text {
+  font-size: calc(1rem + 0.5vw); /* גודל טקסט דינמי */
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  word-wrap: break-word; /* שבירת מילים ארוכות */
+  max-width: 90%; /* מגביל את הטקסט לרוחב הכרטיס */
+  max-height: 50%; /* מגביל את הטקסט לגובה הכרטיס */
+  overflow: hidden; /* מונע גלילה פנימית */
+  text-overflow: ellipsis; /* מוסיף "..." אם הטקסט חורג */
+  display: flex;
+  align-items: center; /* ממרכז את הטקסט אנכית */
+  justify-content: center; /* ממרכז את הטקסט אופקית */
 }
