@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { HDate } from "@hebcal/core";
 
 
@@ -17,7 +17,7 @@ export const TextAreaInput = ({
         value={value}
         onChange={onChange}
         required={required}
-        rows="4"
+        rows="10"
         cols="50"
       />
     </label>
@@ -48,7 +48,7 @@ export const DateInput = ({
         />
       </label>
       {value && (
-        <p style={{ marginTop: "10px", color: "blue", fontWeight: "bold" }}>
+        <p className="hebrewLabel" >
           תאריך עברי: {hebrewDate}
         </p>
       )}

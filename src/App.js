@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import AddMessage from "./components/AddMessage";
 import { NavLink, Outlet, Route, Routes } from "react-router-dom";

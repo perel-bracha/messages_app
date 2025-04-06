@@ -14,7 +14,7 @@ return (
                     fontWeight: isActive ? "bold" : "normal",
                 })}
             >
-                כניסה למערכת
+                {localStorage.getItem("token")? "התנתקות מהמערכת" : "כניסה למערכת"}
             </NavLink>
         </div>
         <div className="home-screens">

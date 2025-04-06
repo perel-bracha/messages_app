@@ -92,7 +92,8 @@ const AddMessage = ({ existingMessage = null }) => {
     e.preventDefault();
     const formDataToSend = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
-      formDataToSend.append(key, value);
+      if (key === "image_path" && value) 
+        formDataToSend.append(key, value, value.name); // הוספת הקובץ עם השם המקורי
     });
 
     console.log(formDataToSend);
@@ -107,17 +108,20 @@ const AddMessage = ({ existingMessage = null }) => {
       major_id: parseInt(formData.major_id, 10),
       study_year_id: parseInt(formData.study_year_id, 10),
       message_text: formData.message_text,
-      image_path: `/public/images/${formData.image_path.name}`,
+      image_path:formData.image_path? `/public/images/${formData.image_path.name}`: null,
       background_id: formData.background_id
         ? parseInt(formData.background_id, 10)
         : null,
     };
 
     console.log(JSON.stringify(transformedFormData));
-    console.log(url, method);
-await fetch();///
-
-
+    if(formData.image_path){
+    await fetch(`${url}/upload_image`, {
+      method: method,
+      body: formDataToSend,
+    });
+    console.log(`uploading image to ${url}/upload_image`);
+  }
     fetch(url, {
       method: method,
       body: JSON.stringify(transformedFormData),

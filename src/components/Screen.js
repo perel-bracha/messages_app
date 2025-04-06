@@ -70,28 +70,51 @@ export function Screen({ screenNum }) {
               {major.major_name}
             </div>
             <div className="major-messages">
-              {messagesByMajor[major.major_id]?.map((msg) => (
-                <div
-                  className="message-card"
-                  key={msg.id}
-                  style={{
-                    backgroundImage: `url(${msg.background_url})`,
-                  }}
-                >
-                  <div className="message-date">
-                    {hebrewDate(msg.destination_date)}
-                    {/* {new HDate(new Date(msg.destination_date)).renderGematriya()} */}
-                  </div>{" "}
-                  <div className="message-year">לשנה: {msg.study_year_name}</div>
-                  <div className="message-text">{msg.message_text}</div>
-                </div>
-              ))}
+              {messagesByMajor[major.major_id]?.map((msg) =>
+                msg.image_url ? (
+                  <OneImage msg={msg} />
+                ) : (
+                  <OneMessage msg={msg} />
+                )
+              )}
             </div>
           </div>
         ))}
       </div>
     </>
   );
+}
+function OneImage({ msg }) {
+  console.log(msg.image_url, `image`);
+  
+  return (
+    <div
+      className="message-card"
+      key={msg.id}
+      style={{
+        backgroundImage: `url(${msg.image_url})`,
+      }}
+    >
+      {/* <img src={msg.image_url} alt="message" className="message-image" /> */}
+    </div>
+  );
+}
+function OneMessage({ msg }) {
+  return (
+  <div
+    className="message-card"
+    key={msg.id}
+    style={{
+      backgroundImage: `url(${msg.background_url})`,
+    }}
+  >
+    <div className="message-date">
+      {hebrewDate(msg.destination_date)}
+      {/* {new HDate(new Date(msg.destination_date)).renderGematriya()} */}
+    </div>{" "}
+    <div className="message-year">לשנה: {msg.study_year_name}</div>
+    <div className="message-text">{msg.message_text}</div>
+  </div>);
 }
 export function hebrewDate(date) {
   return new Intl.DateTimeFormat("he-IL-u-ca-hebrew", {

@@ -421,3 +421,8 @@ h1, h2, h3 {
   background-color: #f9f9f9;
   object-fit: contain; /* שומר על פרופורציות התוכן */
 }
+.hebrewLabel{
+    margin-top: 10px;
+    font-weight: bold;
+    color: #376143;
+}
