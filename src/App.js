@@ -6,21 +6,44 @@ import { Screen } from "./components/Screen";
 import { MessagesList } from "./components/MessagesList";
 import { Home } from "./components/Home";
 import { LogIn } from "./components/LogIn";
+import { Navigate } from "react-router-dom";
 
 function App() {
+  const ProtectedRoute = ({ children }) => {
+    const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
+    return token ? children : <Navigate to="/login" />;
+  };
+
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="/login" element={<LogIn />} />
-        <Route path="/add_message" element={<AddMessage />} />
-        <Route path="/messages_list" element={<MessagesList />} />
-      </Route>
-      <Route path="/screen1" element={<Screen screenNum={1} />} />
-      <Route path="/screen2" element={<Screen screenNum={2} />} />
-      <Route path="/screen3" element={<Screen screenNum={3} />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<LogIn />} />
+          <Route
+            path="/add_message"
+            element={
+              <ProtectedRoute>
+                <AddMessage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/messages_list"
+            element={
+              <ProtectedRoute>
+                <MessagesList />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        <Route path="/screen1" element={<Screen screenNum={1} />} />
+        <Route path="/screen2" element={<Screen screenNum={2} />} />
+        <Route path="/screen3" element={<Screen screenNum={3} />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
   );
 }
 const Layout = () => {
@@ -36,6 +59,9 @@ const Layout = () => {
           paddingBottom: "1rem",
         }}
       >
+        <NavLink to="/home" style={style}>
+          דף הבית
+        </NavLink>
         <NavLink to="/add_message" style={style}>
           הוספת הודעה
         </NavLink>
@@ -52,7 +78,13 @@ const Layout = () => {
           מסך הודעות כלליות
         </NavLink>
       </nav>
-
+      {/* <NavLink
+      className="login-link"
+        to="/login"
+        style={({ isActive }) => ({ fontWeight: isActive ? "bold" : "normal" })}
+      >
+        כניסה למערכת
+      </NavLink> */}
       <main style={{ padding: "1rem 0" }}>
         <Outlet />
       </main>

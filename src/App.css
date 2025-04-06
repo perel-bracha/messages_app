@@ -35,7 +35,7 @@ textarea {
 button {
   width: 100%;
   padding: 10px;
-  background-color: #007bff;
+  background-color: #A3B18A;
   color: white;
   border: none;
   border-radius: 5px;
@@ -44,7 +44,7 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #84916f;
 }
 
 .drag-and-drop {
@@ -87,15 +87,13 @@ button:hover {
 }
 
 .background-selector input[type="radio"]:checked + label img {
-  border-color: #007bff;
+  border-color: #A3B18A;
 }/* עיצוב כפתור ייצוא האקסל */
 
 
 
 
-.export-excel-button:active {
-  background-color: #1e7e34;
-}/* עיצוב הכותרת */
+/* עיצוב הכותרת */
 h1 {
   text-align: center;
   margin-bottom: 20px;
@@ -107,7 +105,7 @@ h1 {
 /* עיצוב כפתור ייצוא האקסל */
 .export-excel-button {
   padding: 5px 15px; /* כפתור צר יותר */
-  background-color: #28a745;
+  background-color: #376143;
   color: white;
   border: none;
   border-radius: 5px;
@@ -119,11 +117,11 @@ h1 {
 }
 
 .export-excel-button:hover {
-  background-color: #218838;
+  background-color: #84916f;
 }
 
 .export-excel-button:active {
-  background-color: #1e7e34;
+  background-color: #A3B18A;
 }
 
 /* עיצוב הקונטיינר של הטופס */
@@ -144,6 +142,11 @@ form {
 
 /* עיצוב כללי */
 body {
+  background-image: url('/public/wooden-fence-with-pattern-tree-bark copy 2.jpg'); /* נתיב לתמונה */
+  background-size: cover; /* התמונה תתפרס על כל המסך */
+  background-repeat: no-repeat; /* ללא חזרה של התמונה */
+  background-attachment: fixed; /* התמונה תישאר קבועה בעת גלילה */
+  background-position: center; /* מיקום התמונה במרכז */
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -156,12 +159,12 @@ body {
 /* עיצוב הניווט */
 /* עיצוב הניווט */
 nav {
-  background-color: #007bff;
+  background-color: #376143;
   padding: 10px 20px;
   display: flex;
   justify-content: space-around; /* ריווח אחיד בין הקישורים */
   align-items: center;
-  border-bottom: 2px solid #0056b3;
+  border-bottom: 2px solid #376143;
 }
 
 nav a {
@@ -177,11 +180,11 @@ nav a {
 }
 
 nav a:hover {
-  background-color: #0056b3;
+  background-color: #84916f;
 }
 
 nav a.active {
-  background-color: #0056b3;
+  background-color: #A3B18A;
 }
 
 /* עיצוב הטבלאות */
@@ -195,7 +198,7 @@ table {
 }
 
 thead {
-  background-color: #007bff;
+  background-color: #A3B18A;
   color: white;
 }
 
@@ -224,7 +227,7 @@ td {
 }
 
 td a {
-  color: #007bff;
+  color: #376143;
   text-decoration: none;
 }
 
@@ -344,4 +347,77 @@ h1, h2, h3 {
   display: flex;
   align-items: center; /* ממרכז את הטקסט אנכית */
   justify-content: center; /* ממרכז את הטקסט אופקית */
+}
+
+/* עיצוב כללי לדף הבית */
+.home-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  gap: 20px;
+  font-family: Arial, sans-serif;
+  direction: rtl; /* מימין לשמאל */
+  text-align: center;
+}
+
+/* עיצוב החלק של הכותרת והטקסט */
+.home-header {
+  flex: 1;
+  max-width: 40%; /* מגביל את הרוחב של הטקסט */
+}
+
+.home-header h1 {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.home-header p {
+  font-size: 18px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* עיצוב הקישור לכניסה למערכת */
+.login-link {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #376143;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.login-link:hover {
+  background-color: #84916f;
+}
+
+/* עיצוב החלק של המסכים */
+.home-screens {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* רווח בין המסכים */
+}
+
+.screen-link {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+}
+
+.screen-preview {
+  width: 100%;
+  height: 300px; /* גובה קבוע למסכים */
+  border: 7px solid #376143; /* מסגרת בולטת */
+  border-radius: 10px; /* פינות מעוגלות */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* צל למסכים */
+  background-color: #f9f9f9;
+  object-fit: contain; /* שומר על פרופורציות התוכן */
 }

@@ -7,7 +7,6 @@ import {
   TextAreaInput,
 } from "./Inputs";
 import Swal from "sweetalert2";
-import { ExportExcel } from "./ExportExcel";
 
 // פונקציה לעיצוב התאריך לפורמט YYYY-MM-DD
 const formatDate = (date) => {
@@ -89,23 +88,11 @@ const AddMessage = ({ existingMessage = null }) => {
     setFormData({ ...formData, background_id: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formDataToSend = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
-      if (
-        key === "major_id" ||
-        key === "study_year_id" ||
-        key === "background_id"
-      ) {
-        // המרת ערכים למספרים (אם הם לא NaN או null)
-        const numberValue = parseInt(value, 10);
-        console.log(numberValue);
-
-        formDataToSend.append(key, isNaN(numberValue) ? "" : numberValue);
-      } else {
-        formDataToSend.append(key, value);
-      }
+      formDataToSend.append(key, value);
     });
 
     console.log(formDataToSend);
@@ -120,7 +107,7 @@ const AddMessage = ({ existingMessage = null }) => {
       major_id: parseInt(formData.major_id, 10),
       study_year_id: parseInt(formData.study_year_id, 10),
       message_text: formData.message_text,
-      image_path: formDataToSend.image_path ? formDataToSend.image_path : null,
+      image_path: `/public/images/${formData.image_path.name}`,
       background_id: formData.background_id
         ? parseInt(formData.background_id, 10)
         : null,
@@ -128,6 +115,8 @@ const AddMessage = ({ existingMessage = null }) => {
 
     console.log(JSON.stringify(transformedFormData));
     console.log(url, method);
+await fetch();///
+
 
     fetch(url, {
       method: method,

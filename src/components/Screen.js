@@ -30,9 +30,6 @@ export function Screen({ screenNum }) {
           }
         }
         setMessagesByMajor(newMessages);
-        setMessagesByMajor.sort((a, b) => {///
-          return new Date(a.destination_date) - new Date(b.destination_date);
-        });
       };
       fetchMessages();
     }

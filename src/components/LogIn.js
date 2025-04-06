@@ -1,21 +1,82 @@
+import { useState } from "react";
+import Swal from 'sweetalert2';
+
 export function LogIn() {
+    const [formData, setFormData] = useState({
+        username: '',
+        password: ''
+    });
+    const login = async (e) => {
+        e.preventDefault(); // מניעת רענון הדף
+        // בדיקה אם השדות ריקים
+        const errors = {};
+        if (!formData.username) {
+            errors.username = 'אנא מלא את שם המשתמש';
+        }
+        if (!formData.password) {
+            errors.password = 'אנא מלא את הסיסמה';
+        }
+        if (Object.keys(errors).length > 0) {
+            setFormData({ ...formData, errors });
+            return;
+        }
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+        const data = await res.json();
+      
+        if (data.success) {
+          localStorage.setItem('token', data.token); // שמירת הטוקן
+          Swal.fire({
+            icon: 'success',
+            title: '!התחברת בהצלחה',
+            showConfirmButton: false,
+            timer: 1500
+          }).then(() => {
+            window.location.href = '/'; // הפניה לדף הבית
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'שגיאת התחברות',
+            text: data.message
+          });
+        }
+      };
+      
     return (
         <div>
-            <h1>Log In</h1>
-            <form>
+            <h1>כניסה למערכת</h1>
+            <form onSubmit={login}>
                 <div>
                     <label>
-                        Username:
-                        <input type="text" name="username" required />
+                        שם משתמש:
+                        <input 
+                            type="text" 
+                            name="username" 
+                            value={formData.username} 
+                            onChange={(e) => setFormData({ ...formData, username: e.target.value })} 
+                            required 
+                        />
                     </label>
                 </div>
                 <div>
                     <label>
-                        Password:
-                        <input type="password" name="password" required />
+                        סיסמה:
+                        <input 
+                            type="password" 
+                            name="password" 
+                            value={formData.password} 
+                            onChange={(e) => setFormData({ ...formData, password: e.target.value })} 
+                            required 
+                        />
                     </label>
                 </div>
-                <button type="submit">Log In</button>
+                <button type="submit">התחבר</button>
             </form>
         </div>
     );
