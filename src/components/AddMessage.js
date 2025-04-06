@@ -7,6 +7,7 @@ import {
   TextAreaInput,
 } from "./Inputs";
 import Swal from "sweetalert2";
+import { useLocation } from "react-router-dom";
 
 // פונקציה לעיצוב התאריך לפורמט YYYY-MM-DD
 const formatDate = (date) => {
@@ -17,14 +18,18 @@ const formatDate = (date) => {
 };
 
 // Main AddMessage component
-const AddMessage = ({ existingMessage = null }) => {
+const AddMessage = () => {
+  const location = useLocation();
+  const existingMessage = location.state?.message; // אם לא יישלח message, הערך יהיה undefined
+  console.log(existingMessage, "existingMessage");
+
   const [formData, setFormData] = useState({
     destination_date: formatDate(new Date()), // תאריך ברירת מחדל: היום
     major_id: "",
     study_year_id: "",
     message_text: "",
     image_path: null,
-    background_id: "",
+    background_id: 1,
   });
   const [majors, setMajors] = useState([]); // מצב לשמירת המגמות
   const [years, setYears] = useState([]); // מצב לשמירת השנים
@@ -32,8 +37,9 @@ const AddMessage = ({ existingMessage = null }) => {
   useEffect(() => {
     if (existingMessage) {
       setFormData({
-        destination_date:
-          existingMessage.destination_date || formatDate(new Date()), // אם אין תאריך, השתמש בתאריך של היום
+        destination_date: existingMessage.destination_date
+          ? formatDate(new Date(existingMessage.destination_date))
+          : formatDate(new Date()),
         major_id: existingMessage.major_id || "",
         study_year_id: existingMessage.study_year_id || "",
         message_text: existingMessage.message_text || "",
@@ -92,7 +98,7 @@ const AddMessage = ({ existingMessage = null }) => {
     e.preventDefault();
     const formDataToSend = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
-      if (key === "image_path" && value) 
+      if (key === "image_path" && value)
         formDataToSend.append(key, value, value.name); // הוספת הקובץ עם השם המקורי
     });
 
@@ -108,20 +114,22 @@ const AddMessage = ({ existingMessage = null }) => {
       major_id: parseInt(formData.major_id, 10),
       study_year_id: parseInt(formData.study_year_id, 10),
       message_text: formData.message_text,
-      image_path:formData.image_path? `/public/images/${formData.image_path.name}`: null,
+      image_path: formData.image_path
+        ? `/public/images/${formData.image_path.name}`
+        : null,
       background_id: formData.background_id
         ? parseInt(formData.background_id, 10)
         : null,
     };
 
     console.log(JSON.stringify(transformedFormData));
-    if(formData.image_path){
-    await fetch(`${url}/upload_image`, {
-      method: method,
-      body: formDataToSend,
-    });
-    console.log(`uploading image to ${url}/upload_image`);
-  }
+    if (formData.image_path) {
+      await fetch(`${url}/upload_image`, {
+        method: method,
+        body: formDataToSend,
+      });
+      console.log(`uploading image to ${url}/upload_image`);
+    }
     fetch(url, {
       method: method,
       body: JSON.stringify(transformedFormData),

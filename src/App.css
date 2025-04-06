@@ -35,7 +35,7 @@ textarea {
 button {
   width: 100%;
   padding: 10px;
-  background-color: #A3B18A;
+  background-color: #a3b18a;
   color: white;
   border: none;
   border-radius: 5px;
@@ -87,11 +87,8 @@ button:hover {
 }
 
 .background-selector input[type="radio"]:checked + label img {
-  border-color: #A3B18A;
-}/* עיצוב כפתור ייצוא האקסל */
-
-
-
+  border-color: #a3b18a;
+} /* עיצוב כפתור ייצוא האקסל */
 
 /* עיצוב הכותרת */
 h1 {
@@ -121,7 +118,7 @@ h1 {
 }
 
 .export-excel-button:active {
-  background-color: #A3B18A;
+  background-color: #a3b18a;
 }
 
 /* עיצוב הקונטיינר של הטופס */
@@ -135,14 +132,13 @@ form {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: relative; /* כדי שהכפתור יישאר בתוך הקונטיינר */
   padding-top: 60px; /* מרווח כדי למנוע חפיפה עם הכפתור */
-
 }
 /* עיצוב כללי לטבלה */
 /*  */
 
 /* עיצוב כללי */
 body {
-  background-image: url('/public/wooden-fence-with-pattern-tree-bark copy 2.jpg'); /* נתיב לתמונה */
+  background-image: url("/public/wooden-fence-with-pattern-tree-bark copy 2.jpg"); /* נתיב לתמונה */
   background-size: cover; /* התמונה תתפרס על כל המסך */
   background-repeat: no-repeat; /* ללא חזרה של התמונה */
   background-attachment: fixed; /* התמונה תישאר קבועה בעת גלילה */
@@ -184,7 +180,7 @@ nav a:hover {
 }
 
 nav a.active {
-  background-color: #A3B18A;
+  background-color: #a3b18a;
 }
 
 /* עיצוב הטבלאות */
@@ -198,7 +194,7 @@ table {
 }
 
 thead {
-  background-color: #A3B18A;
+  background-color: #a3b18a;
   color: white;
 }
 
@@ -236,7 +232,9 @@ td a:hover {
 }
 
 /* עיצוב כותרות */
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   text-align: center;
   margin: 20px 0;
   color: #333;
@@ -258,43 +256,43 @@ h1, h2, h3 {
   color: #666;
 }
 
-.screen{
-    background-size: cover;
-    background-position: center;
-    width: 100vw;
-    height: 100vh;
-    overflow: auto;
-    overflow: hidden; /* Prevent scrolling */
-    display: flex; /* Use flexbox to manage content layout */
-    flex-direction: column; /* Stack items vertically */
+.screen {
+  background-size: cover;
+  background-position: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  overflow: hidden; /* Prevent scrolling */
+  display: flex; /* Use flexbox to manage content layout */
+  flex-direction: column; /* Stack items vertically */
 }
 .major-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    height: 20%;
-    border-bottom: 5px solid #376143; /* ✅ מוסיף קו מפריד בין המגמות */
-    padding-bottom: 10px; /* ✅ יוצר מרווח לפני השורה הבאה */
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  height: 20%;
+  border-bottom: 5px solid #376143; /* ✅ מוסיף קו מפריד בין המגמות */
+  padding-bottom: 10px; /* ✅ יוצר מרווח לפני השורה הבאה */
 }
 .major-name {
-    width: 200px;
-    color: white;
-    padding: 10px;
-    text-align: center;
-    font-weight: bold;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 30px;
-    margin-left: 20px; /* ✅ מוסיף רווח בין שם המגמה להודעות */
+  width: 200px;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  margin-left: 20px; /* ✅ מוסיף רווח בין שם המגמה להודעות */
 }
 
-.major-messages{
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    padding-left: 20px;;
+.major-messages {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-left: 20px;
 }
 .message-card {
   width: 160px;
@@ -421,8 +419,16 @@ h1, h2, h3 {
   background-color: #f9f9f9;
   object-fit: contain; /* שומר על פרופורציות התוכן */
 }
-.hebrewLabel{
-    margin-top: 10px;
-    font-weight: bold;
-    color: #376143;
+.hebrewLabel {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #376143;
+}
+.message-buttons {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.message-buttons:hover {
+  background-color: transparent;
 }
