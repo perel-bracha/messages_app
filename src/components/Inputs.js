@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { HDate } from "@hebcal/core";
+import { hebrewDate } from "./Screen";
 
 
 export const TextAreaInput = ({
@@ -33,8 +34,14 @@ export const DateInput = ({
   onChange,
   required = false,
 }) => {
-  const hebrewDate = value ? new HDate(new Date(value)).renderGematriya() : "";
-
+    const formatHebrewDate = (date) => {
+    const hDate = new HDate(new Date(date));
+    const daysOfWeek = ["א'", "ב'", "ג'", "ד'", "ה'", "ו'", "שבת"];
+    const dayOfWeek = daysOfWeek[new Date(date).getDay()]; // קבלת היום בשבוע בעברית
+    return `${dayOfWeek} ${hDate.renderGematriya()}`;
+  };
+  // const hebrewDate = value ? new HDate(new Date(value)).renderGematriya() : "";
+// const hebrewDate = value ? formatHebrewDate(value) : "";
   return (
     <div>
       <label>
@@ -49,7 +56,7 @@ export const DateInput = ({
       </label>
       {value && (
         <p className="hebrewLabel" >
-          תאריך עברי: {hebrewDate}
+          תאריך עברי: {hebrewDate(value)}
         </p>
       )}
     </div>
