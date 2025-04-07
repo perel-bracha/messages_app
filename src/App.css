@@ -269,12 +269,13 @@ h3 {
 .major-row {
   display: flex;
   align-items: center;
-  height: 20%;
+  height: 19%;
   border-bottom: 5px solid #376143; /* ✅ מוסיף קו מפריד בין המגמות */
   padding: 2px; /* ✅ יוצר מרווח לפני השורה הבאה */
 }
 .major-name {
-  width: 10%;
+  width: auto;
+  aspect-ratio: 1 / 1;
   color: white;
   /* padding: 1.7%; */
   text-align: center;
@@ -294,16 +295,19 @@ h3 {
   /* padding-left: 20px; */
 }
 .message-card {
-  height: 100%;
-  width: 15%;
-  max-width: 100%;
-  object-fit: contain; /* שומר על פרופורציות התוכן */
-  background-size: contain; /* התמונה תוצג בשלמותה */
-  background-repeat: no-repeat; /* ללא חזרה של התמונה */
-  background-position: center;
-  display: flex;
-  flex-direction: column;
   position: relative;
+  height: 200px; /* או כל גובה שאת רוצה */
+  width: fit-content; /* רוחב יתאים לגודל התמונה */
+  overflow: hidden;
+  /* height: 100%; */
+  /* width: 15%; */
+  /* max-width: 100%; */
+  /* object-fit: contain;  */
+  /* background-size: contain; 
+  background-repeat: no-repeat; 
+  background-position: center; */
+  /* display: flex;
+  flex-direction: column; */
 }
 .message-card1 {
   padding: 10px;
@@ -315,13 +319,26 @@ h3 {
   overflow: hidden;
   flex-grow: 1;
 }
-
+.message-background{
+  height: 100%;
+  width: auto; /* כדי לשמור על פרופורציות התמונה */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+.message-content{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1; 
+}
 .message-date {
   font-size: 12px;
   font-weight: bold;
   position: absolute; /* מיקום יחסי לכרטיס */
-  top: 20%;
-  right: 16%;
+  top: 27%;
+  right: 5.5%;
   /*background-color: rgba(255, 255, 255, 0.8);  רקע לבן שקוף */
   padding: 2px 5px;
   border-radius: 3px;
@@ -331,8 +348,8 @@ h3 {
   font-size: 12px;
   font-weight: bold;
   position: absolute; /* מיקום יחסי לכרטיס */
-  top: 27%;
-  right: 16%;
+  top: 35%;
+  right: 5.5%;
   padding: 2px 5px;
   border-radius: 3px;
 }
@@ -343,13 +360,15 @@ h3 {
   color: #333;
   text-align: center;
   word-wrap: break-word; /* שבירת מילים ארוכות */
-  max-width: 90%; /* מגביל את הטקסט לרוחב הכרטיס */
-  max-height: 50%; /* מגביל את הטקסט לגובה הכרטיס */
+  width: 138px;
+  margin-top: 50%;
+  /* max-width: 90%; 
+  max-height: 50%;  */
   overflow: hidden; /* מונע גלילה פנימית */
   text-overflow: ellipsis; /* מוסיף "..." אם הטקסט חורג */
-  display: flex;
-  align-items: center; /* ממרכז את הטקסט אנכית */
-  justify-content: center; /* ממרכז את הטקסט אופקית */
+  /* display: flex; */
+  /* align-items: center;
+  justify-content: center;  */
 }
 
 /* עיצוב כללי לדף הבית */

@@ -105,16 +105,20 @@ function OneMessage({ msg }) {
     <div
       className="message-card"
       key={msg.id}
-      style={{
-        backgroundImage: `url(${msg.background_url})`,
-      }}
+      // style={{
+      //   backgroundImage: `url(${msg.background_url})`,
+      // }}
     >
-      <div className="message-date">
-        {hebrewDate(msg.destination_date)}
-        {/* {new HDate(new Date(msg.destination_date)).renderGematriya()} */}
-      </div>{" "}
-      <div className="message-year">לשנה: {msg.study_year_name}</div>
-      <div className="message-text">{msg.message_text}</div>
+      <img
+        src={msg.background_url}
+        alt="message"
+        className="message-background"
+      />
+      <div className="message-content">
+        <div className="message-date">{hebrewDate(msg.destination_date)}</div>
+        <div className="message-year">לשנה: {msg.study_year_name}</div>
+        <div className="message-text">{msg.message_text}</div>
+      </div>
     </div>
   );
 }
