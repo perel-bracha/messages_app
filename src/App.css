@@ -299,15 +299,6 @@ h3 {
   height: 21vh; /* או כל גובה שאת רוצה */
   width: fit-content; /* רוחב יתאים לגודל התמונה */
   overflow: hidden;
-  /* height: 100%; */
-  /* width: 15%; */
-  /* max-width: 100%; */
-  /* object-fit: contain;  */
-  /* background-size: contain; 
-  background-repeat: no-repeat; 
-  background-position: center; */
-  /* display: flex;
-  flex-direction: column; */
 }
 .message-card-image{
   width: auto;
@@ -325,6 +316,9 @@ h3 {
   text-align: center;
   position: relative; /* מאפשר מיקום יחסי של האלמנטים */
   overflow: hidden; /* מונע גלילה פנימית */
+}
+
+.message-card-clali{
 }
 
 .message-background{

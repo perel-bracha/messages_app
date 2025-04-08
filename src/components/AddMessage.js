@@ -25,8 +25,8 @@ const AddMessage = () => {
 
   const [formData, setFormData] = useState({
     destination_date: formatDate(new Date()), // תאריך ברירת מחדל: היום
-    major_id: "",
-    study_year_id: "",
+    major_id: 1,
+    study_year_id: 1,
     message_text: "",
     image_path: null,
     background_id: 1,
@@ -40,8 +40,8 @@ const AddMessage = () => {
         destination_date: existingMessage.destination_date
           ? formatDate(new Date(existingMessage.destination_date))
           : formatDate(new Date()),
-        major_id: existingMessage.major_id || "",
-        study_year_id: existingMessage.study_year_id || "",
+        major_id: existingMessage.major_id || 1,
+        study_year_id: existingMessage.study_year_id || 1,
         message_text: existingMessage.message_text || "",
         image_path: null, // File inputs cannot be pre-filled
         background_id: existingMessage.background_id || "",
@@ -152,11 +152,11 @@ const AddMessage = () => {
         }).then(() =>
           setFormData({
             destination_date: formatDate(new Date()),
-            major_id: "",
-            study_year_id: "",
+            major_id: 1,
+            study_year_id: 1,
             message_text: "",
             image_path: null,
-            background_id: "",
+            background_id: 1,
           })
         );
       })

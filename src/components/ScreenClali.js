@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
 export function RotatingMessages({ interval = 5000 }) {
-  const [visibleIndexes, setVisibleIndexes] = useState([0, 1]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [pairs, setPairs] = useState([]);
   const [messages, setMessages] = useState([]);
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/majors/1/messages/relevant`)
@@ -11,58 +12,88 @@ export function RotatingMessages({ interval = 5000 }) {
   }, []);
 
   useEffect(() => {
-    if (messages.length <= 2) return;
+    const groupedMessages = [];
+    for (let i = 0; i < messages.length; i += 2) {
+      if (i + 1 < messages.length) {
+        groupedMessages.push([messages[i], messages[i + 1]]);
+      } else {
+        groupedMessages.push([messages[i]]);
+      }
+    }
+    console.log(groupedMessages);
+    setPairs(groupedMessages);
+  }, [messages]);
 
-    const timer = setInterval(() => {
-      setVisibleIndexes(([i1, i2]) => {
-        let nextIndex = (i2 + 1) % messages.length;
-        let second = (nextIndex + 1) % messages.length;
-        return [nextIndex, second];
-      });
+  const [displayedMessages, setDisplayedMessages] = useState([]);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % pairs.length);
     }, interval);
 
-    return () => clearInterval(timer);
-  }, [messages, interval]);
+    return () => clearInterval(intervalId);
+  }, [pairs, interval]);
 
-  const getMessagesToShow = () => {
-    if (messages.length === 1) return [messages[0]];
-    if (messages.length === 2) return [messages[0], messages[1]];
-    return [messages[visibleIndexes[0]], messages[visibleIndexes[1]]];
-  };
-
-  const displayedMessages = getMessagesToShow();
+  useEffect(() => {
+    if (pairs.length > 0) {
+      setDisplayedMessages(Object.values(pairs[currentIndex]));
+    }
+  }, [currentIndex, pairs]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100%",
-        gap: "20px",
-      }}
-    >
-      {displayedMessages.map((msg, index) => (
-        <div
-          key={index}
+    <>
+      <div style={{ position: "absolute", top: "10px", left: "10px" }}>
+        <button
+          onClick={() => (window.location.href = "/")}
           style={{
-            flex: 1,
-            height: "100%",
-            maxWidth: messages.length === 1 ? "100%" : "50%",
-            transition: "all 0.5s ease-in-out",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: "10px",
+            padding: "5px 10px",
+            fontSize: "14px",
+            backgroundColor: "#376143",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
           }}
         >
-          {typeof msg === "string" ? (
-            <div>{msg}</div>
-          ) : (
-            msg
-          )}
-        </div>
-      ))}
-    </div>
+          דף הבית
+        </button>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100%",
+          gap: "20px",
+          overflow: "hidden",
+        }}
+      >
+        {displayedMessages.map((msg, index) => (
+          <div
+            className="message-card-clali"
+            key={msg.id}
+            style={{
+              maxHeight: "100%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              padding: "10px", // Added padding for spacing
+            }}
+          >
+            <img
+              src={msg.image_url}
+              alt={msg.title}
+              style={{
+                maxHeight: "95vh",
+                maxWidth: "100%",
+                objectFit: "contain",
+                margin: "10px", // Added margin for spacing
+              }}
+            />
+          </div>
+        ))}
+      </div>
+    </>
   );
 }

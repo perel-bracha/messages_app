@@ -6,6 +6,7 @@ import { MessagesList } from "./components/MessagesList";
 import { Home } from "./components/Home";
 import { LogIn } from "./components/LogIn";
 import { Navigate } from "react-router-dom";
+import { RotatingMessages } from "./components/ScreenClali";
 
 function App() {
   const ProtectedRoute = ({ children }) => {
@@ -39,7 +40,7 @@ function App() {
         </Route>
         <Route path="/screen1" element={<Screen screenNum={1} />} />
         <Route path="/screen2" element={<Screen screenNum={2} />} />
-        <Route path="/screen3" element={<Screen screenNum={3} />} />
+        <Route path="/screen3" element={<RotatingMessages />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
