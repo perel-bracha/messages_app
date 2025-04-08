@@ -110,7 +110,7 @@ function OneMessage({ msg }) {
   useEffect(() => {
     const adjustFontSize = () => {
       const textElement = textRef.current;
-      const parentElement = textElement.parentElement;
+      const parentElement = textElement.parentElement.parentElement;
 
       if (!textElement || !parentElement) return;
 
@@ -119,18 +119,21 @@ function OneMessage({ msg }) {
       // הקטנת גודל הגופן עד שהטקסט ייכנס בשלמותו
       while (
         (textElement.scrollWidth > parentElement.clientWidth ||
-          textElement.scrollHeight > parentElement.clientHeight) &&
-        fontSize > 0 // גודל מינימלי לגופן
+          textElement.scrollHeight > (parentElement.clientHeight)/1.6) &&
+        fontSize > 5 // גודל מינימלי לגופן
       ) {
         fontSize--;
         textElement.style.fontSize = `${fontSize}px`;
       }
+    console.log(fontSize, `fontSize`, textElement.style.fontSize);
+    
     };
+    
 
     adjustFontSize();
     window.addEventListener("resize", adjustFontSize); // התאמה בעת שינוי גודל חלון
     return () => window.removeEventListener("resize", adjustFontSize);
-  }, [msg.message_text]);
+  }, [msg]);
   return (
     <div
       className="message-card"
