@@ -1,7 +1,9 @@
 import { HDate } from "@hebcal/core";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { RotatingMessages } from "./ScreenClali";
 
 export function Screen({ screenNum }) {
+
   const [majors, setMajors] = useState([]);
   const [messagesByMajor, setMessagesByMajor] = useState({});
   const colors = ["#376143", "#A3B18A"]; // צבעים לסירוגין לרקע שם מגמה
@@ -35,6 +37,10 @@ export function Screen({ screenNum }) {
       fetchMessages();
     }
   }, [majors]);
+  if(screenNum === 3) {return <RotatingMessages/>}
+
+  console.log(messagesByMajor, `majors`, messagesByMajor[0]);
+  
 
   return (
     <>
@@ -90,24 +96,45 @@ function OneImage({ msg }) {
 
   return (
     <div
-      className="message-card"
+      className="message-card-image"
       key={msg.id}
       style={{
         backgroundImage: `url(${msg.image_url})`,
       }}
     >
-      {/* <img src={msg.image_url} alt="message" className="message-image" /> */}
     </div>
   );
 }
 function OneMessage({ msg }) {
+  const textRef = useRef();
+  useEffect(() => {
+    const adjustFontSize = () => {
+      const textElement = textRef.current;
+      const parentElement = textElement.parentElement;
+
+      if (!textElement || !parentElement) return;
+
+      let fontSize = parseInt(window.getComputedStyle(textElement).fontSize);
+
+      // הקטנת גודל הגופן עד שהטקסט ייכנס בשלמותו
+      while (
+        (textElement.scrollWidth > parentElement.clientWidth ||
+          textElement.scrollHeight > parentElement.clientHeight) &&
+        fontSize > 0 // גודל מינימלי לגופן
+      ) {
+        fontSize--;
+        textElement.style.fontSize = `${fontSize}px`;
+      }
+    };
+
+    adjustFontSize();
+    window.addEventListener("resize", adjustFontSize); // התאמה בעת שינוי גודל חלון
+    return () => window.removeEventListener("resize", adjustFontSize);
+  }, [msg.message_text]);
   return (
     <div
       className="message-card"
       key={msg.id}
-      // style={{
-      //   backgroundImage: `url(${msg.background_url})`,
-      // }}
     >
       <img
         src={msg.background_url}
@@ -117,7 +144,7 @@ function OneMessage({ msg }) {
       <div className="message-content">
         <div className="message-date">{hebrewDate(msg.destination_date)}</div>
         <div className="message-year">לשנה: {msg.study_year_name}</div>
-        <div className="message-text">{msg.message_text}</div>
+        <div className="message-text" ref={textRef}>{msg.message_text}</div>
       </div>
     </div>
   );

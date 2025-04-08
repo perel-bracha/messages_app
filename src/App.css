@@ -296,7 +296,7 @@ h3 {
 }
 .message-card {
   position: relative;
-  height: 200px; /* או כל גובה שאת רוצה */
+  height: 21vh; /* או כל גובה שאת רוצה */
   width: fit-content; /* רוחב יתאים לגודל התמונה */
   overflow: hidden;
   /* height: 100%; */
@@ -309,19 +309,27 @@ h3 {
   /* display: flex;
   flex-direction: column; */
 }
-.message-card1 {
+.message-card-image{
+  width: auto;
+  aspect-ratio: 1 / 1; /* יחס גובה לרוחב של 1:1 */
+  height: 16vh;
+  margin-top: 2%;
+  background-size: contain; /* התמונה תוצג בשלמותה */
+  background-repeat: no-repeat; /* ללא חזרה של התמונה */
+  background-position: center;
   padding: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* ממרכז את התוכן אנכית */
+  align-items: center; /* ממרכז את התוכן אופקית */
   text-align: center;
-  overflow: hidden;
-  flex-grow: 1;
+  position: relative; /* מאפשר מיקום יחסי של האלמנטים */
+  overflow: hidden; /* מונע גלילה פנימית */
 }
+
 .message-background{
   height: 100%;
-  width: auto; /* כדי לשמור על פרופורציות התמונה */
+  width: 16vh; /* כדי לשמור על פרופורציות התמונה */
   position: absolute;
   top: 0;
   left: 0;
@@ -337,8 +345,8 @@ h3 {
   font-size: 12px;
   font-weight: bold;
   position: absolute; /* מיקום יחסי לכרטיס */
-  margin-top: 30%;
-  margin-right: 1%;
+  margin-top: 26%;
+  margin-right: 8%;
   /*background-color: rgba(255, 255, 255, 0.8);  רקע לבן שקוף */
   padding: 2px 5px;
   border-radius: 3px;
@@ -348,27 +356,25 @@ h3 {
   font-size: 12px;
   font-weight: bold;
   position: absolute; /* מיקום יחסי לכרטיס */
-  margin-top: 39%;
-  margin-right: 1%;
+  margin-top: 35%;
+  margin-right: 8%;
   padding: 2px 5px;
   border-radius: 3px;
 }
 
 .message-text {
-  font-size: clamp(12px, 2vw, 1rem); /* גודל טקסט דינמי */
+  font-size: 1rem; /* גודל טקסט דינמי */
   font-weight: bold;
   color: #333;
   text-align: center;
   word-wrap: break-word; /* שבירת מילים ארוכות */
-  width: 138px;
-  margin-top: 53%;
-  /* max-width: 90%; 
-  max-height: 50%;  */
+  width: 14vh;
+  margin-top: 46%;
+  margin-bottom: 5%; 
+  margin-right: 8%; 
+  padding-left: 15px;
   overflow: hidden; /* מונע גלילה פנימית */
   text-overflow: ellipsis; /* מוסיף "..." אם הטקסט חורג */
-  /* display: flex; */
-  /* align-items: center;
-  justify-content: center;  */
 }
 
 /* עיצוב כללי לדף הבית */
