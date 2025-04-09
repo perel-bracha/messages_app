@@ -62,6 +62,42 @@ export function Screen({ screenNum, socket }) {
           דף הבית
         </button>
       </div>
+      <img
+        src="/3.png"
+        alt="plant1"
+        style={{
+          position: "absolute",
+          top: "0",
+          right: "0",
+          margin: "0",
+          padding: "0",
+          height: '50%'
+        }}
+      />
+      <img
+        src="/2.png"
+        alt="plant2"
+        style={{
+          position: "absolute",
+          top: "40vh",
+          right: "10vh", // מרחק מימין הוא 20% מגובה המסך
+          margin: "0",
+          padding: "0",
+          height: '40%'
+        }}
+      />
+      <img
+        src="/Plant 2.png"
+        alt="plant3"
+        style={{
+          position: "absolute",
+          top: "18vh",
+          left: "20px", // מרחק מימין הוא 20% מגובה המסך
+          margin: "0",
+          padding: "0",
+          height: '50%'
+        }}
+      />
       <div
         className="screen"
         style={{
