@@ -5,7 +5,7 @@ export function Screen({ screenNum, socket }) {
   const [majors, setMajors] = useState([]);
   const [messagesByMajor, setMessagesByMajor] = useState({});
   const colors = ["#376143", "#A3B18A"]; // צבעים לסירוגין לרקע שם מגמה
-
+const fontColors=['white', "#376143"];
   
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/majors/screen/${screenNum}`)
@@ -80,7 +80,7 @@ export function Screen({ screenNum, socket }) {
         style={{
           position: "absolute",
           top: "40vh",
-          right: "10vh", // מרחק מימין הוא 20% מגובה המסך
+          right: "16vh", // מרחק מימין הוא 20% מגובה המסך
           margin: "0",
           padding: "0",
           height: '40%'
@@ -110,7 +110,7 @@ export function Screen({ screenNum, socket }) {
           <div className="major-row" key={major.major_id}>
             <div
               className="major-name"
-              style={{ backgroundColor: colors[index % 2] }}
+              style={{ backgroundColor: colors[index % 2], color: fontColors[index % 2] }}
             >
               {major.major_name}
             </div>

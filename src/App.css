@@ -334,10 +334,11 @@ h3 {
   padding: 2px; /* ✅ יוצר מרווח לפני השורה הבאה */
 }
 .major-name {
-  font-size: 180%;
+  font-family: 'Amatic SC', cursive;
+  font-size: 250%;
   width: auto;
-  aspect-ratio: 1 / 1;
-  color: white;
+  aspect-ratio: 1.3 / 1;
+  /* color: white; */
   text-align: center;
   font-weight: bold;
   height: 100%;
@@ -347,23 +348,11 @@ h3 {
   margin-left: 1%; /* ✅ מוסיף רווח בין שם המגמה להודעות */
 }
 
-/* @media (max-width: 768px) {
-  .major-name {
-    font-size: 16px; 
-  }
-}
-
-@media (max-width: 480px) {
-  .major-name {
-    font-size: 12px; 
-  }
-} */
 
 .major-messages {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
-  /* padding-left: 20px; */
 }
 .message-card {
   position: relative;
@@ -429,7 +418,7 @@ h3 {
 
 .message-text {
   font-size: 25px; 
-  font-weight: bold;
+  /* font-weight: bold; */
   color: #333;
   text-align: center;
   word-wrap: break-word; /* שבירת מילים ארוכות */
