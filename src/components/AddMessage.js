@@ -82,8 +82,9 @@ const AddMessage = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     if (name == "study_year_id") {
-      if (value == 3) setFormData((prev)=>( {...prev, background_id: "2"}) );
-      else if (value == 2) setFormData((prev)=>( {...prev, background_id: "1"}) );
+      if (value == 3) setFormData((prev) => ({ ...prev, background_id: "2" }));
+      else if (value == 2)
+        setFormData((prev) => ({ ...prev, background_id: "1" }));
     }
   };
 
@@ -109,7 +110,7 @@ const AddMessage = () => {
     console.log(formDataToSend);
 
     const url = existingMessage
-      ? `${process.env.REACT_APP_SERVER_URL}/messages/${existingMessage.id}`
+      ? `${process.env.REACT_APP_SERVER_URL}/messages/${existingMessage.message_id}`
       : `${process.env.REACT_APP_SERVER_URL}/messages`;
 
     const method = existingMessage ? "PUT" : "POST";
@@ -157,8 +158,10 @@ const AddMessage = () => {
       .then((data) => {
         Swal.fire({
           icon: "success",
-          title: "!ההודעה נוספה בהצלחה",
-          text: "הוספנו את ההודעה ללוח המודעות הדיגיטלי", //מידע מפורט
+          title: existingMessage ? "ההודעה עודכנה בהצלחה!" : "ההודעה נוספה בהצלחה!",
+          text: existingMessage
+            ? "ההודעה עודכנה בלוח המודעות הדיגיטלי."
+            : "הוספנו את ההודעה ללוח המודעות הדיגיטלי.",
           confirmButtonText: "אישור",
         }).then(() =>
           setFormData({
@@ -175,8 +178,10 @@ const AddMessage = () => {
         console.error("Error:", error);
         Swal.fire({
           icon: "error",
-          title: "!אירעה שגיאה",
-          text: ".לא הצלחנו להוסיף את ההודעה. נסה שוב",
+          title: "אירעה שגיאה!",
+          text: existingMessage
+            ? "לא הצלחנו לעדכן את ההודעה. נסה שוב."
+            : "לא הצלחנו להוסיף את ההודעה. נסה שוב.",
           confirmButtonText: "אישור",
         });
       });
@@ -185,57 +190,69 @@ const AddMessage = () => {
   return (
     <>
       {/* <h1>הוספת הודעה</h1> */}
-      <form onSubmit={handleSubmit}>
-        <DateInput
-          label="ליום"
-          name="destination_date"
-          value={formData.destination_date}
-          onChange={handleChange}
-          required
-        />
-        <SelectInput
-          label="מגמה"
-          name="major_id"
-          value={formData.major_id}
-          onChange={handleChange}
-          options={majors.map((major) => ({
-            value: major.major_id,
-            label: major.major_name,
-          }))}
-          required
-        />
-        <SelectInput
-          label="שנה"
-          name="study_year_id"
-          value={formData.study_year_id}
-          onChange={handleChange}
-          options={years.map((year) => ({
-            value: year.study_year_id,
-            label: year.study_year_name,
-          }))}
-          required
-        />
-        <TextAreaInput
-          label="גוף ההודעה"
-          name="message_text"
-          value={formData.message_text}
-          onChange={handleChange}
-        />
-        {/* באיזה קבצים תומך */}
+      <form onSubmit={handleSubmit} className="form-container">
+        
+        <div className="major-year-input">
+          <DateInput
+            label="ליום"
+            name="destination_date"
+            value={formData.destination_date}
+            onChange={handleChange}
+            required
+          />
+          <div className="selects">
+            <SelectInput
+              label="מגמה"
+              name="major_id"
+              value={formData.major_id}
+              onChange={handleChange}
+              options={majors.map((major) => ({
+                value: major.major_id,
+                label: major.major_name,
+              }))}
+              required
+            />
+            <SelectInput
+              label="שנה"
+              name="study_year_id"
+              value={formData.study_year_id}
+              onChange={handleChange}
+              options={years.map((year) => ({
+                value: year.study_year_id,
+                label: year.study_year_name,
+              }))}
+              required
+            />
+          </div>
+        </div>
 
-        <BackgroundSelector
-          label="רקע"
-          name="background_id"
-          value={formData.background_id}
-          onChange={handleBackgroundChange}
-          backgrounds={backgrounds}
-        />
-        <DragAndDropFileInput
-          label="העלאת תמונה"
-          name="image_path"
-          onChange={handleFileChange}
-        />
-        <button type="submit">{existingMessage ? "עדכון" : "שמור"}</button>
+        <div className="message-input">
+          <TextAreaInput
+            label="גוף ההודעה"
+            name="message_text"
+            value={formData.message_text}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="background-selector">
+          <BackgroundSelector
+            label="רקע"
+            name="background_id"
+            value={formData.background_id}
+            onChange={handleBackgroundChange}
+            backgrounds={backgrounds}
+          />
+        </div>
+        <div className="file-input">
+          <DragAndDropFileInput
+            label="העלאת תמונה"
+            name="image_path"
+            onChange={handleFileChange}
+          />
+        </div>
+        <div className="submit-button">
+          <button type="submit">{existingMessage ? "עדכון" : "שמור"}</button>
+        </div>
       </form>
     </>
   );

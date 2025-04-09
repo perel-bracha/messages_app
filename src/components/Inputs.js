@@ -9,18 +9,22 @@ export const TextAreaInput = ({
   onChange,
   required = false,
 }) => (
-  <div>
-    <label>
-      {label}:
+  <div style={{ maxWidth: "100%" }}>
       <textarea
+        placeholder="הקלידי כאן את ההודעה"
         name={name}
         value={value}
         onChange={onChange}
         required={required}
         rows="10"
-        cols="50"
+        style={{
+          width: "100%",
+          maxWidth: "100%",
+          boxSizing: "border-box",
+          border: "2px solid #376143",
+        }}
+        
       />
-    </label>
   </div>
 );
 
@@ -64,7 +68,7 @@ export const SelectInput = ({
   options,
   required = false,
 }) => (
-  <div>
+  <div className="select-input-box">
     <label>
       {label}:
       <select name={name} value={value} onChange={onChange} required={required} plac>
@@ -126,30 +130,31 @@ export const DragAndDropFileInput = ({ label, name, onChange }) => {
         padding: "20px",
         textAlign: "center",
         cursor: "pointer",
+        alignItems: "center",
       }}
     >
       {/* טקסט דינמי בהתאם למצב */}
       {!selectedFile ? (
         <>
           <p>{label}</p>
-          <p>Drag and drop a file here, or click to select one</p>
+          <p>ניתן לגרור לכאן תמונה עם ההודעה במקום לבחור רקע וטקסט</p>
         </>
       ) : (
-        <p>Drag and drop a new file to replace the current one</p>
+        <p>גרור תמונה כדי להחליף את התמונה שנבחרה</p>
       )}
 
       <input
         type="file"
         name={name}
         onChange={handleInputChange}
-        style={{ display: "none" }}
+        style={{ display: "none", textAlign: "center" }}
         id={`file-input-${name}`}
       />
       <label
         htmlFor={`file-input-${name}`}
-        style={{ cursor: "pointer", color: "blue" }}
+        style={{ cursor: "pointer", color: "#376143", textAlign: "center", display: "block" }}
       >
-        Browse Files
+        סייר הקבצים
       </label>
 
       {/* הצגת שם הקובץ שנבחר */}
@@ -178,6 +183,7 @@ export const DragAndDropFileInput = ({ label, name, onChange }) => {
 };
 
 
+
 // Modified BackgroundSelector to set the initial value
 export const BackgroundSelector = ({ label, name, value, onChange, backgrounds }) => {
     // Set the initial value if not already set
@@ -187,8 +193,7 @@ export const BackgroundSelector = ({ label, name, value, onChange, backgrounds }
 
     return (
         <div className="background-selector">
-            <label>{label}:</label>
-            <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+            <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", alignSelf: "center" }}>
                 {backgrounds.map((background) => (
                     <div key={background.background_id} style={{ textAlign: "center" }}>
                         <input
@@ -198,8 +203,9 @@ export const BackgroundSelector = ({ label, name, value, onChange, backgrounds }
                             value={background.background_id} // השתמש ב-background_id כערך
                             checked={value === String(background.background_id)} // בדוק אם הערך תואם
                             onChange={onChange}
+                            style={{ display: "none" }} // הסתר את תיבת הסימון
                         />
-                        <label htmlFor={`background-${background.background_id}`}>
+                            <label htmlFor={`background-${background.background_id}`}>
                             <img
                                 src={background.background_url}
                                 alt={background.background_name}
@@ -207,7 +213,7 @@ export const BackgroundSelector = ({ label, name, value, onChange, backgrounds }
                                     width: "100px",
                                     height: "100px",
                                     objectFit: "cover",
-                                    border: value === String(background.background_id) ? "2px solid blue" : "1px solid gray",
+                                    border: value === String(background.background_id) ? "3px solid #376143" : "0px solid",
                                     borderRadius: "5px",
                                 }}
                             />

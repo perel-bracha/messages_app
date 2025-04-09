@@ -6,54 +6,7 @@ export function Screen({ screenNum, socket }) {
   const [messagesByMajor, setMessagesByMajor] = useState({});
   const colors = ["#376143", "#A3B18A"]; // צבעים לסירוגין לרקע שם מגמה
 
-  // useEffect(() => {
-  //   socket.on("message_event", (data) => {
-  //     console.log("Message Event Received:", data);
-
-  //     setMessagesByMajor((prevMessages) => {
-  //       const updatedMessages = { ...prevMessages };
-
-  //       switch (data.event) {
-  //         case "create":
-  //           // הוספת הודעה חדשה
-  //           if (updatedMessages[data.data.major_id]) {
-  //             updatedMessages[data.data.major_id].push(data.data);
-  //           }
-  //           break;
-
-  //         case "update":
-  //           // עדכון הודעה קיימת
-  //           if (updatedMessages[data.data.major_id]) {
-  //             updatedMessages[data.data.major_id] = updatedMessages[
-  //               data.data.major_id
-  //             ].map((msg) =>
-  //               msg.id === data.data.id ? { ...msg, ...data.data } : msg
-  //             );
-  //           }
-  //           break;
-
-  //         case "delete":
-  //           // מחיקת הודעה
-  //           if (updatedMessages[data.data.major_id]) {
-  //             updatedMessages[data.data.major_id] = updatedMessages[
-  //               data.data.major_id
-  //             ].filter((msg) => msg.id !== data.data.id);
-  //           }
-  //           break;
-
-  //         default:
-  //           console.log("Unknown event:", data);
-  //       }
-
-  //       return updatedMessages;
-  //     });
-  //   });
-
-  //   return () => {
-  //     socket.disconnect();
-  //   };
-  // }, [socket]);
-
+  
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/majors/screen/${screenNum}`)
       .then((response) => response.json())
