@@ -51,7 +51,7 @@ export function LogIn() {
     return (
         <div>
             <h1>כניסה למערכת</h1>
-            <form onSubmit={login}>
+            <form onSubmit={login} className="login-form">
                 <div>
                     <label>
                         שם משתמש:

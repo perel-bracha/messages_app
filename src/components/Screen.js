@@ -156,8 +156,8 @@ function OneMessage({ msg }) {
       // הקטנת גודל הגופן עד שהטקסט ייכנס בשלמותו
       while (
         (textElement.scrollWidth > parentElement.clientWidth ||
-          textElement.scrollHeight > parentElement.clientHeight / 1.7) &&
-        fontSize > 5 // גודל מינימלי לגופן
+          textElement.scrollHeight > parentElement.clientHeight / 1.65) &&
+        fontSize > 8 // גודל מינימלי לגופן
       ) {
         fontSize--;
         textElement.style.fontSize = `${fontSize}px`;
