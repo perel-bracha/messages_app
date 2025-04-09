@@ -21,7 +21,7 @@ const formatDate = (date) => {
 const AddMessage = () => {
   const location = useLocation();
   const existingMessage = location.state?.message; // אם לא יישלח message, הערך יהיה undefined
-  console.log(existingMessage, "existingMessage");
+  // console.log(existingMessage, "existingMessage");
 
   const [formData, setFormData] = useState({
     destination_date: formatDate(new Date()), // תאריך ברירת מחדל: היום
@@ -29,7 +29,7 @@ const AddMessage = () => {
     study_year_id: 1,
     message_text: "",
     image_path: null,
-    background_id: 1,
+    background_id: "1",
   });
   const [majors, setMajors] = useState([]); // מצב לשמירת המגמות
   const [years, setYears] = useState([]); // מצב לשמירת השנים
@@ -81,12 +81,16 @@ const AddMessage = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    if (name == "study_year_id") {
+      if (value == 3) setFormData((prev)=>( {...prev, background_id: "2"}) );
+      else if (value == 2) setFormData((prev)=>( {...prev, background_id: "1"}) );
+    }
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setFormData({ ...formData, image_path: file }); // שמירת הקובץ במקום ה-URL
+      setFormData({ ...formData, image_path: file, background_id: "0" }); // שמירת הקובץ במקום ה-URL
     }
   };
 
@@ -124,10 +128,17 @@ const AddMessage = () => {
 
     console.log(JSON.stringify(transformedFormData));
     if (formData.image_path) {
-      await fetch(`${url}/upload_image`, {
+      const uploadResponse = await fetch(`${url}/upload_image`, {
         method: method,
         body: formDataToSend,
       });
+
+      if (!uploadResponse.ok) {
+        throw new Error("Failed to upload the image");
+      }
+
+      const uploadResult = await uploadResponse.json();
+      transformedFormData.image_path = uploadResult.filePath; // Update the image_path with the file path from the server
       console.log(`uploading image to ${url}/upload_image`);
     }
     fetch(url, {
@@ -156,7 +167,7 @@ const AddMessage = () => {
             study_year_id: 1,
             message_text: "",
             image_path: null,
-            background_id: 1,
+            background_id: "1",
           })
         );
       })
@@ -173,7 +184,7 @@ const AddMessage = () => {
 
   return (
     <>
-      <h1>הוספת הודעה</h1>
+      {/* <h1>הוספת הודעה</h1> */}
       <form onSubmit={handleSubmit}>
         <DateInput
           label="ליום"

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { HDate } from "@hebcal/core";
 import { hebrewDate } from "./Screen";
 
 
@@ -34,16 +33,9 @@ export const DateInput = ({
   onChange,
   required = false,
 }) => {
-    const formatHebrewDate = (date) => {
-    const hDate = new HDate(new Date(date));
-    const daysOfWeek = ["א'", "ב'", "ג'", "ד'", "ה'", "ו'", "שבת"];
-    const dayOfWeek = daysOfWeek[new Date(date).getDay()]; // קבלת היום בשבוע בעברית
-    return `${dayOfWeek} ${hDate.renderGematriya()}`;
-  };
-  // const hebrewDate = value ? new HDate(new Date(value)).renderGematriya() : "";
-// const hebrewDate = value ? formatHebrewDate(value) : "";
+
   return (
-    <div>
+    <div className="date-input">
       <label>
         {label}:
         <input
@@ -227,38 +219,3 @@ export const BackgroundSelector = ({ label, name, value, onChange, backgrounds }
         </div>
     );
 };
-// export const BackgroundSelector = ({ label, name, value, onChange, backgrounds }) => {
-//     return (
-//         <div className="background-selector">
-//             <label>{label}:</label>
-//             <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-//                 {backgrounds.map((background) => (
-//                     <div key={background.background_id} style={{ textAlign: "center" }}>
-//                         <input
-//                             type="radio"
-//                             id={`background-${background.background_id}`}
-//                             name={name}
-//                             value={background.background_id} // השתמש ב-background_id כערך
-//                             checked={value === String(background.background_id)} // בדוק אם הערך תואם
-//                             onChange={onChange}
-//                         />
-//                         <label htmlFor={`background-${background.background_id}`}>
-//                             <img
-//                                 src={background.background_url}
-//                                 alt={background.background_name}
-//                                 style={{
-//                                     width: "100px",
-//                                     height: "100px",
-//                                     objectFit: "cover",
-//                                     border: value === String(background.background_id) ? "2px solid blue" : "1px solid gray",
-//                                     borderRadius: "5px",
-//                                 }}
-//                             />
-//                         </label>
-//                         <div>{background.background_name}</div>
-//                     </div>
-//                 ))}
-//             </div>
-//         </div>
-//     );
-// };

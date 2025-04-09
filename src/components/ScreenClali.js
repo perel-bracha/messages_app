@@ -1,15 +1,24 @@
 import { useEffect, useState } from "react";
 
-export function RotatingMessages({ interval = 5000 }) {
+export function RotatingMessages({ interval = 5000, socket }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [pairs, setPairs] = useState([]);
   const [messages, setMessages] = useState([]);
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}/majors/1/messages/relevant`)
-      .then((response) => response.json())
-      .then((data) => setMessages(data))
-      .catch((error) => console.log(error));
-  }, []);
+    const fetchMessages = () => {
+      fetch(`${process.env.REACT_APP_SERVER_URL}/majors/1/messages/relevant`)
+        .then((response) => response.json())
+        .then((data) => setMessages(data))
+        .catch((error) => console.log(error));
+    };
+    fetchMessages();
+    socket.on("message_event", (data) => {
+      console.log("Message Event Received:", data);
+      fetchMessages(); // קריאה מחדש של כל ההודעות
+    });
+
+    
+  }, [socket]);
 
   useEffect(() => {
     const groupedMessages = [];

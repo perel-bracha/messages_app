@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap");
 form {
-  max-width: 600px;
+  width: 70%;
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ccc;
   border-radius: 10px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.1); /* רקע שקוף עם כהות מסוימת */
+  border: 3px solid #376143; /* מסגרת ירוקה כהה ועבה יותר */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* צל עם נוכחות */
 }
 
 form > div {
@@ -17,16 +17,25 @@ label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
+  font-size: large;
+  /* display: flex;
+  justify-content: space-between; */
 }
 
 input,
 select,
 textarea {
-  width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
+}
+
+select {
+  width: 35%;
+}
+.date-input {
+  width: 28.2%;
 }
 
 textarea {
@@ -123,17 +132,7 @@ h1 {
 }
 
 /* עיצוב הקונטיינר של הטופס */
-form {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position: relative; /* כדי שהכפתור יישאר בתוך הקונטיינר */
-  padding-top: 60px; /* מרווח כדי למנוע חפיפה עם הכפתור */
-}
+
 /* עיצוב כללי לטבלה */
 /*  */
 
@@ -144,7 +143,8 @@ body {
   background-repeat: no-repeat; /* ללא חזרה של התמונה */
   background-attachment: fixed; /* התמונה תישאר קבועה בעת גלילה */
   background-position: center; /* מיקום התמונה במרכז */
-  font-family: 'Rubik', sans-serif;  margin: 0;
+  font-family: "Rubik", sans-serif;
+  margin: 0;
   padding: 0;
   background-color: #f4f4f9;
   color: #333;
@@ -300,7 +300,7 @@ h3 {
   width: fit-content; /* רוחב יתאים לגודל התמונה */
   overflow: hidden;
 }
-.message-card-image{
+.message-card-image {
   width: auto;
   aspect-ratio: 1 / 1; /* יחס גובה לרוחב של 1:1 */
   height: 16vh;
@@ -318,10 +318,10 @@ h3 {
   overflow: hidden; /* מונע גלילה פנימית */
 }
 
-.message-card-clali{
+.message-card-clali {
 }
 
-.message-background{
+.message-background {
   height: 100%;
   width: 16vh; /* כדי לשמור על פרופורציות התמונה */
   position: absolute;
@@ -329,14 +329,14 @@ h3 {
   left: 0;
   z-index: 0;
 }
-.message-content{
+.message-content {
   display: flex;
   flex-direction: column;
   position: relative;
-  z-index: 1; 
+  z-index: 1;
 }
 .message-date {
-  font-size: 12px;
+  font-size: 10px;
   font-weight: bold;
   position: absolute; /* מיקום יחסי לכרטיס */
   margin-top: 26%;
@@ -347,7 +347,7 @@ h3 {
 }
 
 .message-year {
-  font-size: 12px;
+  font-size: 10px;
   font-weight: bold;
   position: absolute; /* מיקום יחסי לכרטיס */
   margin-top: 35%;
@@ -364,8 +364,8 @@ h3 {
   word-wrap: break-word; /* שבירת מילים ארוכות */
   width: 14vh;
   margin-top: 46%;
-  margin-bottom: 5%; 
-  margin-right: 8%; 
+  margin-bottom: 5%;
+  margin-right: 8%;
   padding-left: 15px;
   white-space: pre-line;
   /* overflow: hidden;  */
@@ -446,6 +446,7 @@ h3 {
 }
 .hebrewLabel {
   margin-top: 10px;
+  margin-right: 1%;
   font-weight: bold;
   color: #376143;
 }
@@ -457,8 +458,8 @@ h3 {
 .message-buttons:hover {
   background-color: transparent;
 }
-textarea{
-  font-family: 'Rubik', sans-serif;
+textarea {
+  font-family: "Rubik", sans-serif;
   font-size: 16px;
   line-height: 1.5;
   padding: 10px;

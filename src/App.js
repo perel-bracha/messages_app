@@ -7,12 +7,26 @@ import { Home } from "./components/Home";
 import { LogIn } from "./components/LogIn";
 import { Navigate } from "react-router-dom";
 import { RotatingMessages } from "./components/ScreenClali";
-
+import {io} from 'socket.io-client'
+import { useEffect } from "react";
+const socket=io(`${process.env.REACT_APP_SERVER_URL}`);
 function App() {
   const ProtectedRoute = ({ children }) => {
     const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
     return token ? children : <Navigate to="/login" />;
   };
+  // useEffect(() => {
+  //   const handleBeforeUnload = () => {
+  //     socket.disconnect(); // סגירת החיבור בעת סגירת האפליקציה
+  //   };
+
+  //   window.addEventListener("beforeunload", handleBeforeUnload);
+
+  //   return () => {
+  //     window.removeEventListener("beforeunload", handleBeforeUnload);
+  //     socket.disconnect(); // סגירת החיבור בעת ניקוי האפליקציה
+  //   };
+  // }, []);
 
   return (
     <>
@@ -38,9 +52,9 @@ function App() {
             }
           />
         </Route>
-        <Route path="/screen1" element={<Screen screenNum={1} />} />
-        <Route path="/screen2" element={<Screen screenNum={2} />} />
-        <Route path="/screen3" element={<RotatingMessages />} />
+        <Route path="/screen1" element={<Screen screenNum={1} socket={socket}/>} />
+        <Route path="/screen2" element={<Screen screenNum={2} socket={socket}/>} />
+        <Route path="/screen3" element={<RotatingMessages socket={socket}/>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
