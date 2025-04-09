@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap");
-form {
+.form-container {
   display: grid;
   grid-template-areas:
     "major message message"
@@ -16,6 +16,15 @@ form {
   background-color: rgba(0, 0, 0, 0.1); /* רקע שקוף עם כהות מסוימת */
   border: 3px solid #376143; /* מסגרת ירוקה כהה ועבה יותר */
   /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  */
+}
+form{
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  width: 300px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.1); /* רקע שקוף עם כהות מסוימת */
+  border: 3px solid #376143; /* מסגרת ירוקה כהה ועבה יותר */  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 /* form > * {
   border: 1px dashed red;
@@ -321,19 +330,30 @@ h3 {
   padding: 2px; /* ✅ יוצר מרווח לפני השורה הבאה */
 }
 .major-name {
+  font-size: 180%;
   width: auto;
   aspect-ratio: 1 / 1;
   color: white;
-  /* padding: 1.7%; */
   text-align: center;
   font-weight: bold;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 30px;
   margin-left: 1%; /* ✅ מוסיף רווח בין שם המגמה להודעות */
 }
+
+/* @media (max-width: 768px) {
+  .major-name {
+    font-size: 16px; 
+  }
+}
+
+@media (max-width: 480px) {
+  .major-name {
+    font-size: 12px; 
+  }
+} */
 
 .major-messages {
   display: flex;
@@ -481,16 +501,48 @@ h3 {
   width: 100%;
   text-decoration: none;
 }
+.screen-preview-wrapper {
+  position: relative;
+  width: 100%; /* או גודל קבוע */
+  aspect-ratio: 16 / 9; /* שומר על יחס מסך */
+  overflow: hidden;
+  /* border: 2px solid #ccc; */
+  /* border-radius: 10px; */
+}
 
 .screen-preview {
   width: 100%;
-  height: 300px; /* גובה קבוע למסכים */
-  border: 7px solid #376143; /* מסגרת בולטת */
-  border-radius: 10px; /* פינות מעוגלות */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* צל למסכים */
-  background-color: #f9f9f9;
-  object-fit: contain; /* שומר על פרופורציות התוכן */
+  height: 100%;
+  transform: scale(0.9); /* לדוגמה - אם רוצים להקטין */
+  transform-origin: top left;
+  pointer-events: none;
+  border: none;
+  display: block;
 }
+.screen-overlay {
+  position: absolute;
+  font-family: 'rubik', sans-serif;
+  top: 0;
+  left: 0;
+  width: 90%;
+  height: 90%;
+  background-color: rgba(0, 0, 0, 0.5); /* שכבה שחורה שקופה */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  opacity: 0; /* מוסתר כברירת מחדל */
+  transition: opacity 0.3s ease; /* אנימציה חלקה */
+  pointer-events: none; /* מונע אינטראקציה עם השכבה */
+}
+
+.screen-preview-wrapper:hover .screen-overlay {
+  opacity: 1; /* מציג את השכבה כאשר עומדים עם העכבר */
+}
+
 .hebrewLabel {
   margin-top: 10px;
   margin-right: 1%;
@@ -512,4 +564,10 @@ textarea {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+}
+.theTitle{
+  margin-top: 20%;
+  font-family: 'Amatic SC';
+  color: #376143 !important;
+  font-size: 100px !important;
 }
