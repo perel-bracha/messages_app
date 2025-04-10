@@ -10,11 +10,13 @@ export function MessagesList() {
   const [filteredMessages, setFilteredMessages] = useState([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false); // מצב פתיחה/סגירה של החלונית
   const [filters, setFilters] = useState({
-    fromDate: "",
-    toDate: "",
-    major: "",
-    year: "",
-    text: "",
+    message_start_date: "",
+    message_end_date: "",
+    destination_start_date: "",
+    destination_end_date: "",
+    major_name: "",
+    study_year_name: "",
+    message_text: "",
   });
 
   const navigate = useNavigate();
@@ -29,22 +31,22 @@ export function MessagesList() {
       .catch((error) => console.log(error));
   }, []);
 
-    const handleColumnResize = (e, columnIndex) => {
+  const handleColumnResize = (e, columnIndex) => {
     const table = e.target.closest("table");
     const th = table.querySelectorAll("th")[columnIndex];
     const startX = e.clientX;
     const startWidth = th.offsetWidth;
-  
+
     const onMouseMove = (moveEvent) => {
       const newWidth = startWidth + (moveEvent.clientX - startX);
       th.style.width = `${newWidth}px`;
     };
-  
+
     const onMouseUp = () => {
       document.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("mouseup", onMouseUp);
     };
-  
+
     document.addEventListener("mousemove", onMouseMove);
     document.addEventListener("mouseup", onMouseUp);
   };
@@ -55,27 +57,57 @@ export function MessagesList() {
 
   const applyFilters = () => {
     const filtered = messages.filter((message) => {
-      const messageDate = new Date(message.destination_date);
-      const fromDate = filters.fromDate ? new Date(filters.fromDate) : null;
-      const toDate = filters.toDate ? new Date(filters.toDate) : null;
+      const destinationDate = new Date(message.destination_date);
+      destinationDate.setHours(0, 0, 0, 0);
+
+      const destinationStartDate = filters.destination_start_date
+      ? new Date(filters.destination_start_date)
+      : null;
+      if (destinationStartDate) destinationStartDate.setHours(0, 0, 0, 0);
+
+      const destinationEndDate = filters.destination_end_date
+      ? new Date(filters.destination_end_date)
+      : null;
+      if (destinationEndDate) destinationEndDate.setHours(0, 0, 0, 0);
+
+      const messageDate = new Date(message.message_date);
+      messageDate.setHours(0, 0, 0, 0);
+
+      const messageStartDate = filters.message_start_date
+      ? new Date(filters.message_start_date)
+      : null;
+      if (messageStartDate) messageStartDate.setHours(0, 0, 0, 0);
+
+      const messageEndDate = filters.message_end_date
+      ? new Date(filters.message_end_date)
+      : null;
+      if (messageEndDate) messageEndDate.setHours(0, 0, 0, 0);
+console.log(messageDate, messageStartDate, messageEndDate);
 
       return (
-        (!fromDate || messageDate >= fromDate) &&
-        (!toDate || messageDate <= toDate) &&
-        (!filters.major || message.major_name.includes(filters.major)) &&
-        (!filters.year || message.study_year_name.includes(filters.year)) &&
-        (!filters.text || message.message_text.includes(filters.text))
+        (!messageStartDate || messageDate >= messageStartDate) &&
+        (!messageEndDate || messageDate <= messageEndDate) &&
+        (!destinationStartDate || destinationDate >= destinationStartDate) &&
+        (!destinationStartDate || destinationDate <= destinationEndDate) &&
+        (!filters.major_name ||
+          message.major_name.includes(filters.major_name)) &&
+        (!filters.study_year_name ||
+          message.study_year_name.includes(filters.study_year_name)) &&
+        (!filters.message_text ||
+          message.message_text.includes(filters.message_text))
       );
     });
     setFilteredMessages(filtered);
   };
   const clearFilters = () => {
     setFilters({
-      fromDate: "",
-      toDate: "",
-      major: "",
-      year: "",
-      text: "",
+      message_start_date: "",
+      message_end_date: "",
+      destination_start_date: "",
+      destination_end_date: "",
+      major_name: "",
+      study_year_name: "",
+      message_text: "",
     });
     setFilteredMessages(messages); // מחזיר את כל ההודעות
   };
@@ -96,30 +128,54 @@ export function MessagesList() {
         }}
       >
         <h3>סינון הודעות</h3>
-        <label>
-          מתאריך:
-          <input
-            type="date"
-            name="fromDate"
-            value={filters.fromDate}
-            onChange={handleFilterChange}
-          />
-        </label>
-        <label>
-          עד תאריך:
-          <input
-            type="date"
-            name="toDate"
-            value={filters.toDate}
-            onChange={handleFilterChange}
-          />
-        </label>
+        <div className="filter-date">
+          <label>תאריך כתיבת ההודעה</label>
+          <label>
+            מתאריך:
+            <input
+              type="date"
+              name="message_start_date"
+              value={filters.message_start_date}
+              onChange={handleFilterChange}
+            />
+          </label>
+          <label>
+            עד תאריך:
+            <input
+              type="date"
+              name="message_end_date"
+              value={filters.message_end_date}
+              onChange={handleFilterChange}
+            />
+          </label>
+        </div>
+        <div className="filter-date">
+        <label>תאריך יעד</label>
+          <label>
+            מתאריך:
+            <input
+              type="date"
+              name="destination_start_date"
+              value={filters.destination_start_date}
+              onChange={handleFilterChange}
+            />
+          </label>
+          <label>
+            עד תאריך:
+            <input
+              type="date"
+              name="destination_end_date"
+              value={filters.destination_end_date}
+              onChange={handleFilterChange}
+            />
+          </label>
+        </div>
         <label>
           מגמה:
           <input
             type="text"
-            name="major"
-            value={filters.major}
+            name="major_name"
+            value={filters.major_name}
             onChange={handleFilterChange}
           />
         </label>
@@ -127,8 +183,8 @@ export function MessagesList() {
           שנה:
           <input
             type="text"
-            name="year"
-            value={filters.year}
+            name="study_year_name"
+            value={filters.study_year_name}
             onChange={handleFilterChange}
           />
         </label>
@@ -136,8 +192,8 @@ export function MessagesList() {
           טקסט:
           <input
             type="text"
-            name="text"
-            value={filters.text}
+            name="message_text"
+            value={filters.message_text}
             onChange={handleFilterChange}
           />
         </label>
@@ -146,7 +202,7 @@ export function MessagesList() {
       </div>
 
       <div className={`table-container ${isFilterOpen ? "shifted" : ""}`}>
-                <table>
+        <table>
           <thead>
             <tr>
               <th>
@@ -227,7 +283,7 @@ export function MessagesList() {
                   </button>
                 </td>
                 <td>
-                {new Date(message.message_date).toLocaleDateString()}{" "}
+                  {new Date(message.message_date).toLocaleDateString()}{" "}
                   {new Date(message.message_date).toLocaleTimeString()}{" "}
                   {hebrewDate(message.message_date)}
                 </td>
@@ -251,7 +307,7 @@ export function MessagesList() {
             ))}
           </tbody>
         </table>
-        <ExportExcel />
+        <ExportExcel filters={filters}/>
       </div>
     </div>
   );

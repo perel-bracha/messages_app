@@ -1,7 +1,10 @@
-export function ExportExcel() {
+export function ExportExcel({filters}) {
   const handleExport = async () => {
+    const queryString = new URLSearchParams(filters).toString();
+    console.log(`Exporting with filters: ${queryString}`); // Debugging line
+    
     try {
-      const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/messages/export`, {
+      const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/messages/export?${queryString}`, {
         method: "GET",
       });
 
