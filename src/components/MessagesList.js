@@ -82,7 +82,7 @@ export function MessagesList() {
       ? new Date(filters.message_end_date)
       : null;
       if (messageEndDate) messageEndDate.setHours(0, 0, 0, 0);
-console.log(messageDate, messageStartDate, messageEndDate);
+// console.log(messageDate, messageStartDate, messageEndDate);
 
       return (
         (!messageStartDate || messageDate >= messageStartDate) &&
@@ -315,7 +315,7 @@ console.log(messageDate, messageStartDate, messageEndDate);
 function handleEdit(message, navigate) {
   navigate("/add_message", { state: { message } });
 
-  console.log(`Edit message with ID: ${message.message_id}`);
+  // console.log(`Edit message with ID: ${message.message_id}`, message.background_id);
 }
 async function handleDelete(messageId, setMessages) {
   const confirmation = await Swal.fire({
@@ -337,7 +337,7 @@ async function handleDelete(messageId, setMessages) {
           method: "DELETE",
         }
       );
-      console.log(response);
+      // console.log(response);
 
       if (!response.ok) {
         throw new Error("Failed to verify deletion");
@@ -352,87 +352,3 @@ async function handleDelete(messageId, setMessages) {
     }
   }
 }
-
-// import { useEffect, useState } from "react";
-// import { ExportExcel } from "./ExportExcel";
-// import { hebrewDate } from "./Screen";
-// import { useNavigate } from "react-router-dom";
-// export function MessagesList() {
-//   const [messages, setMessages] = useState([]);
-//   const navigate = useNavigate();
-
-//   useEffect(() => {
-//     fetch(`${process.env.REACT_APP_SERVER_URL}/messages`)
-//       .then((response) => response.json())
-//       .then((data) => {
-//         setMessages(data);
-//       })
-//       .catch((error) => console.log(error));
-//   }, []);
-//   return (
-//     <>
-//       <table>
-//         <thead>
-//           <tr>
-//             <th></th>
-//             <th></th>
-//             <th>תאריך</th>
-//             <th>תאריך יעד</th>
-//             <th>מגמה</th>
-//             <th>שנה</th>
-//             <th>טקסט</th>
-//             <th>קובץ</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {messages.map((message) => {
-//             console.log(message);
-
-//             return (
-//               <tr key={message.message_id}>
-//                 <td>
-//                   <button
-//                     className="message-buttons"
-//                     onClick={() => handleEdit(message, navigate)}
-//                   >
-//                     ✏️
-//                   </button>
-//                 </td>
-//                 <td>
-//                   <button
-//                     className="message-buttons"
-//                     onClick={() =>
-//                       handleDelete(message.message_id, setMessages)
-//                     }
-//                   >
-//                     🗑️
-//                   </button>
-//                 </td>
-//                 <td>
-//                   {message.message_date} {hebrewDate(message.message_date)}
-//                 </td>
-//                 <td>
-//                   {new Date(message.destination_date).toLocaleDateString()}{" "}
-//                   {hebrewDate(message.destination_date)}
-//                 </td>
-//                 <td>{message.major_name}</td>
-//                 <td>{message.study_year_name}</td>
-//                 <td>{message.message_text}</td>
-//                 <td>
-//                   <a
-//                     href={message.image_url}
-//                     target="_blank"
-//                     rel="noopener noreferrer"
-//                   >
-//                     {message.image_url}
-//                   </a>
-//                 </td>
-//               </tr>
-//             );
-//           })}
-//         </tbody>
-//       </table>
-//       <ExportExcel />
-//     </>
-//   );
-// }

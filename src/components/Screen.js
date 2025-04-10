@@ -5,13 +5,13 @@ export function Screen({ screenNum, socket }) {
   const [majors, setMajors] = useState([]);
   const [messagesByMajor, setMessagesByMajor] = useState({});
   const colors = ["#376143", "#A3B18A"]; // צבעים לסירוגין לרקע שם מגמה
-const fontColors=['white', "#376143"];
-  
+  const fontColors = ["white", "#376143"];
+
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/majors/screen/${screenNum}`)
       .then((response) => response.json())
       .then((data) => setMajors(data))
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   }, [screenNum]);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const fontColors=['white', "#376143"];
             );
             newMessages[major.major_id] = await response.json();
           } catch (error) {
-            console.log(
+            console.error(
               `Error fetching messages for major ${major.major_id}:`,
               error
             );
@@ -35,14 +35,12 @@ const fontColors=['white', "#376143"];
       };
       fetchMessages();
       socket.on("message_event", (data) => {
-        console.log("Message Event Received:", data);
+        // console.log("Message Event Received:", data);
         fetchMessages(); // קריאה מחדש של כל ההודעות
       });
-    
-      
     }
   }, [socket, majors]);
-  console.log(messagesByMajor, messagesByMajor[0]);
+  // console.log(messagesByMajor, messagesByMajor[0]);
 
   return (
     <>
@@ -71,7 +69,7 @@ const fontColors=['white', "#376143"];
           right: "0",
           margin: "0",
           padding: "0",
-          height: '50%'
+          height: "50%",
         }}
       />
       <img
@@ -83,7 +81,7 @@ const fontColors=['white', "#376143"];
           right: "16vh", // מרחק מימין הוא 20% מגובה המסך
           margin: "0",
           padding: "0",
-          height: '40%'
+          height: "40%",
         }}
       />
       <img
@@ -95,7 +93,7 @@ const fontColors=['white', "#376143"];
           left: "20px", // מרחק מימין הוא 20% מגובה המסך
           margin: "0",
           padding: "0",
-          height: '50%'
+          height: "50%",
         }}
       />
       <div
@@ -110,16 +108,19 @@ const fontColors=['white', "#376143"];
           <div className="major-row" key={major.major_id}>
             <div
               className="major-name"
-              style={{ backgroundColor: colors[index % 2], color: fontColors[index % 2] }}
+              style={{
+                backgroundColor: colors[index % 2],
+                color: fontColors[index % 2],
+              }}
             >
               {major.major_name}
             </div>
             <div className="major-messages">
               {messagesByMajor[major.major_id]?.map((msg) =>
                 msg.image_url ? (
-                  <OneImage msg={msg} />
+                  <OneImage msg={msg} key={msg.message_id}/>
                 ) : (
-                  <OneMessage msg={msg} />
+                  <OneMessage msg={msg} key={msg.message_id}/>
                 )
               )}
             </div>
@@ -130,7 +131,7 @@ const fontColors=['white', "#376143"];
   );
 }
 function OneImage({ msg }) {
-  console.log(msg.image_url, `image`);
+  // console.log(msg.image_url, `image`);
 
   return (
     <div
@@ -162,7 +163,7 @@ function OneMessage({ msg }) {
         fontSize--;
         textElement.style.fontSize = `${fontSize}px`;
       }
-      console.log(fontSize, `fontSize`, textElement.style.fontSize);
+      // console.log(fontSize, `fontSize`, textElement.style.fontSize);
     };
 
     adjustFontSize();

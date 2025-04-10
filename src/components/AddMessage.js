@@ -44,7 +44,7 @@ const AddMessage = () => {
         study_year_id: existingMessage.study_year_id || 1,
         message_text: existingMessage.message_text || "",
         image_path: null, // File inputs cannot be pre-filled
-        background_id: existingMessage.background_id || "",
+        background_id: JSON.stringify(existingMessage.background_id) || "1",
       });
     }
   }, [existingMessage]);
@@ -101,13 +101,23 @@ const AddMessage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (formData.major_id !== 1 && formData.message_text.trim() === "") {
+      Swal.fire({
+      icon: "warning",
+      title: "שגיאה",
+      text: "יש להזין טקסט בהודעה.",
+      confirmButtonText: "אישור",
+      });
+      return;
+    }
     const formDataToSend = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
       if (key === "image_path" && value)
         formDataToSend.append(key, value, value.name); // הוספת הקובץ עם השם המקורי
     });
 
-    console.log(formDataToSend);
+    // console.log(formDataToSend);
 
     const url = existingMessage
       ? `${process.env.REACT_APP_SERVER_URL}/messages/${existingMessage.message_id}`
@@ -127,7 +137,7 @@ const AddMessage = () => {
         : null,
     };
 
-    console.log(JSON.stringify(transformedFormData));
+    // console.log(JSON.stringify(transformedFormData));
     if (formData.image_path) {
       const uploadResponse = await fetch(`${url}/upload_image`, {
         method: method,
@@ -140,7 +150,7 @@ const AddMessage = () => {
 
       const uploadResult = await uploadResponse.json();
       transformedFormData.image_path = uploadResult.filePath; // Update the image_path with the file path from the server
-      console.log(`uploading image to ${url}/upload_image`);
+      // console.log(`uploading image to ${url}/upload_image`);
     }
     fetch(url, {
       method: method,

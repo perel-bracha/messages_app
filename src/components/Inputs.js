@@ -71,7 +71,7 @@ export const SelectInput = ({
   <div className="select-input-box">
     <label>
       {label}:
-      <select name={name} value={value} onChange={onChange} required={required} plac>
+      <select name={name} value={value} onChange={onChange} required={required}>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
@@ -133,7 +133,6 @@ export const DragAndDropFileInput = ({ label, name, onChange }) => {
         alignItems: "center",
       }}
     >
-      {/* טקסט דינמי בהתאם למצב */}
       {!selectedFile ? (
         <>
           <p>{label}</p>

@@ -9,11 +9,11 @@ export function RotatingMessages({ interval = 5000, socket }) {
       fetch(`${process.env.REACT_APP_SERVER_URL}/majors/1/messages/relevant`)
         .then((response) => response.json())
         .then((data) => setMessages(data))
-        .catch((error) => console.log(error));
+        .catch((error) => console.error(error));
     };
     fetchMessages();
     socket.on("message_event", (data) => {
-      console.log("Message Event Received:", data);
+      // console.log("Message Event Received:", data);
       fetchMessages(); // קריאה מחדש של כל ההודעות
     });
 
@@ -29,7 +29,7 @@ export function RotatingMessages({ interval = 5000, socket }) {
         groupedMessages.push([messages[i]]);
       }
     }
-    console.log(groupedMessages);
+    // console.log(groupedMessages);
     setPairs(groupedMessages);
   }, [messages]);
 
