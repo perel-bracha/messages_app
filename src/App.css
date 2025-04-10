@@ -291,6 +291,25 @@ td a:hover {
   text-decoration: underline;
 }
 
+th {
+  position: relative;
+  text-align: left;
+}
+
+.resize-handle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5px;
+  height: 100%;
+  cursor: col-resize;
+  background-color: transparent;
+}
+
+.resize-handle:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
 /* עיצוב כותרות */
 h1,
 h2,

@@ -29,6 +29,25 @@ export function MessagesList() {
       .catch((error) => console.log(error));
   }, []);
 
+    const handleColumnResize = (e, columnIndex) => {
+    const table = e.target.closest("table");
+    const th = table.querySelectorAll("th")[columnIndex];
+    const startX = e.clientX;
+    const startWidth = th.offsetWidth;
+  
+    const onMouseMove = (moveEvent) => {
+      const newWidth = startWidth + (moveEvent.clientX - startX);
+      th.style.width = `${newWidth}px`;
+    };
+  
+    const onMouseUp = () => {
+      document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseup", onMouseUp);
+    };
+  
+    document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("mouseup", onMouseUp);
+  };
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFilters({ ...filters, [name]: value });
@@ -127,17 +146,63 @@ export function MessagesList() {
       </div>
 
       <div className={`table-container ${isFilterOpen ? "shifted" : ""}`}>
-        <table>
+                <table>
           <thead>
             <tr>
-              <th></th>
-              <th></th>
-              <th>תאריך</th>
-              <th>תאריך יעד</th>
-              <th>מגמה</th>
-              <th>שנה</th>
-              <th>טקסט</th>
-              <th>קובץ</th>
+              <th>
+                <div
+                  className="resize-handle"
+                  onMouseDown={(e) => handleColumnResize(e, 0)}
+                ></div>
+              </th>
+              <th>
+                <div
+                  className="resize-handle"
+                  onMouseDown={(e) => handleColumnResize(e, 1)}
+                ></div>
+              </th>
+              <th>
+                תאריך
+                <div
+                  className="resize-handle"
+                  onMouseDown={(e) => handleColumnResize(e, 2)}
+                ></div>
+              </th>
+              <th>
+                תאריך יעד
+                <div
+                  className="resize-handle"
+                  onMouseDown={(e) => handleColumnResize(e, 3)}
+                ></div>
+              </th>
+              <th>
+                מגמה
+                <div
+                  className="resize-handle"
+                  onMouseDown={(e) => handleColumnResize(e, 4)}
+                ></div>
+              </th>
+              <th>
+                שנה
+                <div
+                  className="resize-handle"
+                  onMouseDown={(e) => handleColumnResize(e, 5)}
+                ></div>
+              </th>
+              <th>
+                טקסט
+                <div
+                  className="resize-handle"
+                  onMouseDown={(e) => handleColumnResize(e, 6)}
+                ></div>
+              </th>
+              <th>
+                קובץ
+                <div
+                  className="resize-handle"
+                  onMouseDown={(e) => handleColumnResize(e, 7)}
+                ></div>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -162,7 +227,9 @@ export function MessagesList() {
                   </button>
                 </td>
                 <td>
-                  {message.message_date} {hebrewDate(message.message_date)}
+                {new Date(message.message_date).toLocaleDateString()}{" "}
+                  {new Date(message.message_date).toLocaleTimeString()}{" "}
+                  {hebrewDate(message.message_date)}
                 </td>
                 <td>
                   {new Date(message.destination_date).toLocaleDateString()}{" "}
