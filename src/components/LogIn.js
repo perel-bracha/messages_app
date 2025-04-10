@@ -30,7 +30,7 @@ export function LogIn() {
         const data = await res.json();
       
         if (data.success) {
-          localStorage.setItem('token', data.token); // שמירת הטוקן
+          sessionStorage.setItem('token', data.token); // שמירת הטוקן
           Swal.fire({
             icon: 'success',
             title: '!התחברת בהצלחה',

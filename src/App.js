@@ -11,7 +11,7 @@ import {io} from 'socket.io-client'
 const socket=io(`${process.env.REACT_APP_SERVER_URL}`);
 function App() {
   const ProtectedRoute = ({ children }) => {
-    const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
+    const token = sessionStorage.getItem("token"); // Assuming token is stored in localStorage
     return token ? children : <Navigate to="/login" />;
   };
 

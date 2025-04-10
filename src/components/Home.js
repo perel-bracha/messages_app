@@ -2,19 +2,30 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
 export function Home() {
+  const handleLogout = () => {
+    sessionStorage.removeItem("token");
+    window.location.href = "/";
+  };
+
   return (
     <div className="home-container">
       <div className="home-header">
         <h1 className="theTitle">לוח מודעות דיגיטלי</h1>
-        <NavLink
-          className="login-link"
-          to="/login"
-          style={({ isActive }) => ({
-            fontWeight: isActive ? "bold" : "normal",
-          })}
-        >
-          {localStorage.getItem("token") ? "התנתקות מהמערכת" : "כניסה למערכת"}
-        </NavLink>
+        {sessionStorage.getItem("token") ? (
+          <button className="logout-button" onClick={handleLogout}>
+            התנתקות מהמערכת
+          </button>
+        ) : (
+          <NavLink
+            className="login-link"
+            to="/login"
+            style={({ isActive }) => ({
+              fontWeight: isActive ? "bold" : "normal",
+            })}
+          >
+            כניסה למערכת
+          </NavLink>
+        )}
       </div>
       <div className="home-screens">
         <Link to="/screen1" className="screen-link">
