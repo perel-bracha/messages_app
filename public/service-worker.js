@@ -4,8 +4,8 @@ const CACHE_NAME = 'my-pwa-cache-v1';
 const urlsToCache = [
   '/',
   '/index.html',
-  '/static/js/main.js',
-  '/static/css/main.css',
+//   '/static/js/main.js',
+//   '/static/css/main.css',
   // הוסף כאן כל קובץ static אחר שתרצה לשמור במטמון
 ];
 
