@@ -9,9 +9,13 @@ export function MessagesList() {
   const [messages, setMessages] = useState([]);
   const [filteredMessages, setFilteredMessages] = useState([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false); // מצב פתיחה/סגירה של החלונית
+  const today = new Date();
+  const oneMonthAgo = new Date();
+  oneMonthAgo.setMonth(today.getMonth() - 1);
+
   const [filters, setFilters] = useState({
-    message_start_date: "",
-    message_end_date: "",
+    message_start_date: oneMonthAgo.toISOString().split("T")[0],
+    message_end_date: today.toISOString().split("T")[0],
     destination_start_date: "",
     destination_end_date: "",
     major_name: "",
@@ -61,28 +65,28 @@ export function MessagesList() {
       destinationDate.setHours(0, 0, 0, 0);
 
       const destinationStartDate = filters.destination_start_date
-      ? new Date(filters.destination_start_date)
-      : null;
+        ? new Date(filters.destination_start_date)
+        : null;
       if (destinationStartDate) destinationStartDate.setHours(0, 0, 0, 0);
 
       const destinationEndDate = filters.destination_end_date
-      ? new Date(filters.destination_end_date)
-      : null;
+        ? new Date(filters.destination_end_date)
+        : null;
       if (destinationEndDate) destinationEndDate.setHours(0, 0, 0, 0);
 
       const messageDate = new Date(message.message_date);
       messageDate.setHours(0, 0, 0, 0);
 
       const messageStartDate = filters.message_start_date
-      ? new Date(filters.message_start_date)
-      : null;
+        ? new Date(filters.message_start_date)
+        : null;
       if (messageStartDate) messageStartDate.setHours(0, 0, 0, 0);
 
       const messageEndDate = filters.message_end_date
-      ? new Date(filters.message_end_date)
-      : null;
+        ? new Date(filters.message_end_date)
+        : null;
       if (messageEndDate) messageEndDate.setHours(0, 0, 0, 0);
-// console.log(messageDate, messageStartDate, messageEndDate);
+      // console.log(messageDate, messageStartDate, messageEndDate);
 
       return (
         (!messageStartDate || messageDate >= messageStartDate) &&
@@ -101,8 +105,8 @@ export function MessagesList() {
   };
   const clearFilters = () => {
     setFilters({
-      message_start_date: "",
-      message_end_date: "",
+      message_start_date: oneMonthAgo.toISOString().split("T")[0],
+      message_end_date: today.toISOString().split("T")[0],
       destination_start_date: "",
       destination_end_date: "",
       major_name: "",
@@ -150,7 +154,7 @@ export function MessagesList() {
           </label>
         </div>
         <div className="filter-date">
-        <label>תאריך יעד</label>
+          <label>תאריך יעד</label>
           <label>
             מתאריך:
             <input
@@ -276,7 +280,7 @@ export function MessagesList() {
                   <button
                     className="message-buttons"
                     onClick={() =>
-                      handleDelete(message.message_id, setMessages)
+                      handleDelete(message.message_id, setFilteredMessages)
                     }
                   >
                     🗑️
@@ -307,7 +311,7 @@ export function MessagesList() {
             ))}
           </tbody>
         </table>
-        <ExportExcel filters={filters}/>
+        <ExportExcel filters={filters} />
       </div>
     </div>
   );
@@ -331,8 +335,10 @@ async function handleDelete(messageId, setMessages) {
 
   if (confirmation.isConfirmed) {
     try {
+      console.log(`${process.env.REACT_APP_SERVER_URL}/messages/${messageId}`);
+      
       const response = await fetch(
-        `${process.env.REACT_APP_SERVER_URL}/messages/${messageId}`,
+        `${process.env.REACT_APP_SERVER_URL}/messages/${Number(messageId)}`,
         {
           method: "DELETE",
         }

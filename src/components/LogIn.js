@@ -33,7 +33,7 @@ export function LogIn() {
           sessionStorage.setItem('token', data.token); // שמירת הטוקן
           Swal.fire({
             icon: 'success',
-            title: '!התחברת בהצלחה',
+            title: 'התחברת בהצלחה!',
             showConfirmButton: false,
             timer: 1500
           }).then(() => {
