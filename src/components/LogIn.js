@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 
 export function LogIn() {
@@ -6,6 +7,7 @@ export function LogIn() {
         username: '',
         password: ''
     });
+    const navigate = useNavigate();
     const login = async (e) => {
         e.preventDefault(); // מניעת רענון הדף
         // בדיקה אם השדות ריקים
@@ -37,7 +39,7 @@ export function LogIn() {
             showConfirmButton: false,
             timer: 1500
           }).then(() => {
-            window.location.href = '/'; // הפניה לדף הבית
+            navigate('/home'); // הפניה לדף הבית
           });
         } else {
           Swal.fire({
