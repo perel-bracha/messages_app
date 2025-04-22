@@ -376,11 +376,11 @@ h3 {
 .message-card {
   position: relative;
   height: 21vh; /* או כל גובה שאת רוצה */
-  width: fit-content; /* רוחב יתאים לגודל התמונה */
+  width: 20vh; /* רוחב יתאים לגודל התמונה */
   overflow: hidden;
 }
 .message-card-image {
-  width: auto;
+  width: 20vh;
   aspect-ratio: 1 / 1; /* יחס גובה לרוחב של 1:1 */
   height: 16vh;
   margin-top: 3%;
@@ -402,7 +402,7 @@ h3 {
 
 .message-background {
   height: 100%;
-  width: 16vh; /* כדי לשמור על פרופורציות התמונה */
+  width: 20vh; /* כדי לשמור על פרופורציות התמונה */
   position: absolute;
   top: 0;
   left: 0;
@@ -412,10 +412,11 @@ h3 {
   display: flex;
   flex-direction: column;
   position: relative;
+  align-items: center;
   z-index: 1;
 }
 .message-date {
-  font-size: 9px;
+  font-size: 10px;
   font-weight: bold;
   position: absolute; /* מיקום יחסי לכרטיס */
   margin-top: 11%;
@@ -441,10 +442,10 @@ h3 {
   color: #333;
   text-align: center;
   word-wrap: break-word; /* שבירת מילים ארוכות */
-  width: 14vh;
-  margin-top: 25%;
+  width: 17.5vh;
+  margin-top: 23.5%;
   margin-bottom: 5%;
-  margin-right: 8%;
+  margin-right: 14%;
   padding-left: 15px;
   white-space: pre-line;
   /* overflow: hidden;  */
