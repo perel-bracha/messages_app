@@ -416,7 +416,7 @@ h3 {
 }
 .message-date {
   font-size: 10px;
-  font-weight: bold;
+  font-weight: lighter;
   position: absolute; /* מיקום יחסי לכרטיס */
   margin-top: 11%;
   margin-right: 8%;
