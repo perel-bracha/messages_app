@@ -1,5 +1,6 @@
 import { HDate } from "@hebcal/core";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function Screen({ screenNum, socket }) {
   const [majors, setMajors] = useState([]);
@@ -41,12 +42,12 @@ export function Screen({ screenNum, socket }) {
     }
   }, [socket, majors]);
   // console.log(messagesByMajor, messagesByMajor[0]);
-
+const navigate=useNavigate();
   return (
     <>
       <div style={{ position: "absolute", top: "10px", left: "10px" }}>
         <button
-          onClick={() => (window.location.href = "/")}
+          onClick={() => navigate("/home")}
           style={{
             padding: "5px 10px",
             fontSize: "14px",
