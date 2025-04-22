@@ -38,7 +38,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="*" element={<Navigate to="/home" />} />
+          <Route path="*" element={<Navigate to="home" />} />
         </Route>
         <Route path="/screen1" element={<Screen screenNum={1} socket={socket}/>} />
         <Route path="/screen2" element={<Screen screenNum={2} socket={socket}/>} />
