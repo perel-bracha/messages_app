@@ -29,7 +29,7 @@ const AddMessage = () => {
     study_year_id: 1,
     message_text: "",
     image_path: null,
-    background_id: "1",
+    background_id: "3",
   });
   const [majors, setMajors] = useState([]); // מצב לשמירת המגמות
   const [years, setYears] = useState([]); // מצב לשמירת השנים
@@ -84,6 +84,8 @@ const AddMessage = () => {
     if (name == "study_year_id") {
       if (value == 3) setFormData((prev) => ({ ...prev, background_id: "2" }));
       else if (value == 2)
+        setFormData((prev) => ({ ...prev, background_id: "3" }));
+      else if (value == 4 || value == 1)
         setFormData((prev) => ({ ...prev, background_id: "1" }));
     }
   };
@@ -104,10 +106,10 @@ const AddMessage = () => {
 
     if (formData.major_id !== 1 && formData.message_text.trim() === "") {
       Swal.fire({
-      icon: "warning",
-      title: "שגיאה",
-      text: "יש להזין טקסט בהודעה.",
-      confirmButtonText: "אישור",
+        icon: "warning",
+        title: "שגיאה",
+        text: "יש להזין טקסט בהודעה.",
+        confirmButtonText: "אישור",
       });
       return;
     }
@@ -168,7 +170,9 @@ const AddMessage = () => {
       .then((data) => {
         Swal.fire({
           icon: "success",
-          title: existingMessage ? "ההודעה עודכנה בהצלחה!" : "ההודעה נוספה בהצלחה!",
+          title: existingMessage
+            ? "ההודעה עודכנה בהצלחה!"
+            : "ההודעה נוספה בהצלחה!",
           text: existingMessage
             ? "ההודעה עודכנה בלוח המודעות הדיגיטלי."
             : "הוספנו את ההודעה ללוח המודעות הדיגיטלי.",
@@ -180,7 +184,7 @@ const AddMessage = () => {
             study_year_id: 1,
             message_text: "",
             image_path: null,
-            background_id: "1",
+            background_id: "3",
           })
         );
       })
@@ -201,10 +205,9 @@ const AddMessage = () => {
     <>
       {/* <h1>הוספת הודעה</h1> */}
       <form onSubmit={handleSubmit} className="form-container">
-        
         <div className="major-year-input">
           <DateInput
-            label="ליום"
+            label="עד תאריך"
             name="destination_date"
             value={formData.destination_date}
             onChange={handleChange}

@@ -158,7 +158,7 @@ function OneMessage({ msg }) {
       // הקטנת גודל הגופן עד שהטקסט ייכנס בשלמותו
       while (
         (textElement.scrollWidth > parentElement.clientWidth ||
-          textElement.scrollHeight > parentElement.clientHeight / 1.65) &&
+          textElement.scrollHeight > parentElement.clientHeight / 1.3) &&
         fontSize > 8 // גודל מינימלי לגופן
       ) {
         fontSize--;
@@ -179,8 +179,8 @@ function OneMessage({ msg }) {
         className="message-background"
       />
       <div className="message-content">
-        <div className="message-date">{hebrewDate(msg.destination_date)}</div>
-        <div className="message-year">לשנה: {msg.study_year_name}</div>
+        <div className="message-date">{hebrewDate(msg.message_date)}/ לשנה {msg.study_year_name}</div>
+        {/* <div className="message-year">לשנה {msg.study_year_name}</div> */}
         <div className="message-text" ref={textRef}>
           {msg.message_text}
         </div>
