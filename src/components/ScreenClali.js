@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function RotatingMessages({ interval = 5000, socket }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -16,8 +17,6 @@ export function RotatingMessages({ interval = 5000, socket }) {
       // console.log("Message Event Received:", data);
       fetchMessages(); // קריאה מחדש של כל ההודעות
     });
-
-    
   }, [socket]);
 
   useEffect(() => {
@@ -48,12 +47,12 @@ export function RotatingMessages({ interval = 5000, socket }) {
       setDisplayedMessages(Object.values(pairs[currentIndex]));
     }
   }, [currentIndex, pairs]);
-
+  const navigate = useNavigate();
   return (
     <>
       <div style={{ position: "absolute", top: "10px", left: "10px" }}>
         <button
-          onClick={() => (window.location.href = "/")}
+          onClick={() => navigate("/home")}
           style={{
             padding: "5px 10px",
             fontSize: "14px",
