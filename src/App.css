@@ -415,8 +415,8 @@ h3 {
   z-index: 1;
 }
 .message-date {
-  font-size: 10px;
-  font-weight: lighter;
+  font-size: 9px;
+  font-weight: bold;
   position: absolute; /* מיקום יחסי לכרטיס */
   margin-top: 11%;
   margin-right: 8%;
@@ -442,7 +442,7 @@ h3 {
   text-align: center;
   word-wrap: break-word; /* שבירת מילים ארוכות */
   width: 14vh;
-  margin-top: 21%;
+  margin-top: 26%;
   margin-bottom: 5%;
   margin-right: 8%;
   padding-left: 15px;
