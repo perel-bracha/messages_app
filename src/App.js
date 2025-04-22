@@ -72,6 +72,7 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
+                <Route path="*" element={<Navigate to="/home" />} />
               </Route>
               <Route
                 path="/screen1"
