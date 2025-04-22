@@ -111,7 +111,7 @@ const navigate=useNavigate();
               className="major-name"
               style={{
                 backgroundColor: colors[index % 2],
-                color: fontColors[index % 2],
+                color: fontColors[0],
               }}
             >
               {major.major_name}

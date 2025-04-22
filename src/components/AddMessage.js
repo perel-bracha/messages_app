@@ -84,9 +84,9 @@ const AddMessage = () => {
     if (name == "study_year_id") {
       if (value == 3) setFormData((prev) => ({ ...prev, background_id: "2" }));
       else if (value == 2)
-        setFormData((prev) => ({ ...prev, background_id: "3" }));
-      else if (value == 4 || value == 1)
         setFormData((prev) => ({ ...prev, background_id: "1" }));
+      else if (value == 4 || value == 1)
+        setFormData((prev) => ({ ...prev, background_id: "3" }));
     }
   };
 
