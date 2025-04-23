@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export function RotatingMessages({ interval = 5000, socket }) {
+export function RotatingMessages({ interval = 8000, socket }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [pairs, setPairs] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -21,9 +21,9 @@ export function RotatingMessages({ interval = 5000, socket }) {
 
   useEffect(() => {
     const groupedMessages = [];
-    for (let i = 0; i < messages.length; i += 3) {
+    for (let i = 0; i < messages.length; i += 2) {
       if (i + 1 < messages.length) {
-        groupedMessages.push([messages[i], messages[i + 1], messages[i + 2]]);
+        groupedMessages.push([messages[i], messages[i + 1]]);
       } else {
         groupedMessages.push([messages[i]]);
       }
