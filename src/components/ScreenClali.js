@@ -76,31 +76,35 @@ export function RotatingMessages({ interval = 5000, socket }) {
           overflow: "hidden",
         }}
       >
-        {displayedMessages.map((msg, index) => (
-          <div
-            className="message-card-clali"
-            key={msg.id}
-            style={{
-              maxHeight: "100%",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: "10px", // Added padding for spacing
-            }}
-          >
-            <img
-              src={msg.image_url}
-              alt={msg.title}
+        {displayedMessages.map((msg, index) =>
+          msg.image_url?.endsWith(".pdf") ? (
+            <iframe className="message-card-pdf-clali" src={msg.image_url}></iframe>
+          ) : (
+            <div
+              className="message-card-clali"
+              key={msg.id}
               style={{
-                maxHeight: "95vh",
-                maxWidth: "100%",
-                objectFit: "contain",
-                margin: "10px", // Added margin for spacing
+                maxHeight: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                padding: "10px", // Added padding for spacing
               }}
-            />
-          </div>
-        ))}
+            >
+              <img
+                src={msg.image_url}
+                alt={msg.title}
+                style={{
+                  maxHeight: "95vh",
+                  maxWidth: "100%",
+                  objectFit: "contain",
+                  margin: "10px", // Added margin for spacing
+                }}
+              />
+            </div>
+          )
+        )}
       </div>
     </>
   );
