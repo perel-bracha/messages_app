@@ -23,9 +23,9 @@ export function RotatingMessages({ interval = 5000, socket }) {
     const groupedMessages = [];
     for (let i = 0; i < messages.length; i += 2) {
       if (i + 1 < messages.length) {
-        groupedMessages.push([messages[i], messages[i + 1]);
+        groupedMessages.push([messages[i], messages[i + 1]]);
       } else {
-        groupedMessages.push([messages[i]);
+        groupedMessages.push([messages[i]];
       }
     }
     // console.log(groupedMessages);
