@@ -118,10 +118,12 @@ const navigate=useNavigate();
             </div>
             <div className="major-messages">
               {messagesByMajor[major.major_id]?.map((msg) =>
-                msg.image_url ? (
-                  <OneImage msg={msg} key={msg.message_id}/>
+                msg.image_url?.endsWith(".pdf") ? (
+                  <OnePDF msg={msg} key={msg.message_id} />
+                ) : msg.image_url ? (
+                  <OneImage msg={msg} key={msg.message_id} />
                 ) : (
-                  <OneMessage msg={msg} key={msg.message_id}/>
+                  <OneMessage msg={msg} key={msg.message_id} />
                 )
               )}
             </div>
@@ -145,7 +147,13 @@ function OneImage({ msg }) {
   );
 }
 function OnePDF({msg}){
-return (<iframe className="message-card-image" src={msg.image_url}></iframe>)
+return (
+  <iframe
+    className="message-card-pdf"
+    src={msg.image_url}
+    
+  ></iframe>
+);
 }
 function OneMessage({ msg }) {
   const textRef = useRef();
