@@ -69,42 +69,56 @@ export function RotatingMessages({ interval = 5000, socket }) {
       <div
         style={{
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "space-evenly",
           alignItems: "center",
           height: "100%",
           gap: "20px",
           overflow: "hidden",
         }}
       >
-        {displayedMessages.map((msg, index) =>
-          msg.image_url?.endsWith(".pdf") ? (
-            <iframe className="message-card-pdf-clali" src={msg.image_url}></iframe>
-          ) : (
+        {displayedMessages.map((msg, index) => {
+          console.log(msg);
+
+          return (
             <div
               className="message-card-clali"
-              key={msg.id}
+              key={msg?.id}
               style={{
-                maxHeight: "100%",
+                // maxHeight: "100%",
                 display: "flex",
-                flexDirection: "column",
+                flex: 1,
+                // flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
                 padding: "10px", // Added padding for spacing
               }}
             >
-              <img
-                src={msg.image_url}
-                alt={msg.title}
-                style={{
-                  maxHeight: "95vh",
-                  maxWidth: "100%",
-                  objectFit: "contain",
-                  margin: "10px", // Added margin for spacing
-                }}
-              />
+              {msg?.image_url?.endsWith(".pdf") ? (
+                <iframe
+                  key={msg?.id}
+                  // className="message-card-pdf-clali"
+                  src={msg.image_url}
+                  style={{
+                    Height: "100%",
+                    Width: "100%",
+                    objectFit: "contain",
+                    margin: "none", // Added margin for spacing
+                  }}
+                ></iframe>
+              ) : (
+                <img
+                  src={msg?.image_url}
+                  alt={msg?.title}
+                  style={{
+                    height: "100%",
+                    width: "100%",
+                    objectFit: "contain",
+                  }}
+                />
+              )}
             </div>
-          )
-        )}
+          );
+        })}
       </div>
     </>
   );

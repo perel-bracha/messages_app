@@ -16,8 +16,9 @@ export const TextAreaInput = ({
         value={value}
         onChange={onChange}
         required={required}
-        rows="10"
+        rows="8"
         style={{
+          fontSize: "20px",
           width: "100%",
           maxWidth: "100%",
           boxSizing: "border-box",

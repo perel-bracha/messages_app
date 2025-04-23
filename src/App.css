@@ -409,7 +409,11 @@ h3 {
   position: relative; /* מאפשר מיקום יחסי של האלמנטים */
   overflow: hidden;
 }
-
+.message-card-pdf-clali{
+  /* aspect-ratio: 1 / 1.5;  */
+  max-height: 95vh;
+  height: 100%;
+}
 .message-card-clali {
 }
 
