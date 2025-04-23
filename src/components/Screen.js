@@ -144,6 +144,9 @@ function OneImage({ msg }) {
     ></div>
   );
 }
+function OnePDF({msg}){
+return (<iframe className="message-card-image" src={msg.image_url}></iframe>)
+}
 function OneMessage({ msg }) {
   const textRef = useRef();
   useEffect(() => {
@@ -159,7 +162,7 @@ function OneMessage({ msg }) {
       while (
         (textElement.scrollWidth > parentElement.clientWidth ||
           textElement.scrollHeight > parentElement.clientHeight / 1.4) &&
-        fontSize > 8 // גודל מינימלי לגופן
+        fontSize > 6 // גודל מינימלי לגופן
       ) {
         fontSize--;
         textElement.style.fontSize = `${fontSize}px`;
