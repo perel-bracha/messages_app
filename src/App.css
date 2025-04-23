@@ -378,7 +378,7 @@ h3 {
   width: 20vh;
   aspect-ratio: 1 / 1; /* יחס גובה לרוחב של 1:1 */
   height: 16vh;
-  margin-top: 3%;
+  margin-top: 2%;
   background-size: contain; /* התמונה תוצג בשלמותה */
   background-repeat: no-repeat; /* ללא חזרה של התמונה */
   background-position: center;
@@ -394,7 +394,7 @@ h3 {
 .message-card-pdf {
   width: 27vh;
   /* aspect-ratio: 1 / 1.5;  */
-  height: 18.5vh;
+  height: 18.1vh;
   margin-top: 1.5%;
   background-size: contain; /* התמונה תוצג בשלמותה */
   background-repeat: no-repeat; /* ללא חזרה של התמונה */
