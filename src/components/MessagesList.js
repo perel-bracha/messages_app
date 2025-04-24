@@ -263,6 +263,13 @@ export function MessagesList() {
                   onMouseDown={(e) => handleColumnResize(e, 7)}
                 ></div>
               </th>
+              <th>
+                כותבת
+                <div
+                  className="resize-handle"
+                  onMouseDown={(e) => handleColumnResize(e, 7)}
+                ></div>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -307,6 +314,7 @@ export function MessagesList() {
                     {message.image_url}
                   </a>
                 </td>
+                <td>{message.author_name}</td>
               </tr>
             ))}
           </tbody>
@@ -336,7 +344,7 @@ async function handleDelete(messageId, setMessages) {
   if (confirmation.isConfirmed) {
     try {
       console.log(`${process.env.REACT_APP_SERVER_URL}/messages/${messageId}`);
-      
+
       const response = await fetch(
         `${process.env.REACT_APP_SERVER_URL}/messages/${Number(messageId)}`,
         {
