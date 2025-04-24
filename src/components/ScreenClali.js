@@ -104,7 +104,7 @@ export function RotatingMessages({ interval = 8000, socket }) {
                     width: "100%",
                     objectFit: "contain",
                     margin: "none", // Added margin for spacing
-                    overflow: "inherit"
+                    overflow: "hidden",
                   }}
                 ></iframe>
               ) : (
