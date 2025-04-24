@@ -1,6 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf";
+import pdfjsWorker from 'pdfjs-dist/legacy/build/pdf.worker.entry';
 
+// הגדרת ה-worker
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 export function RotatingMessages({ interval = 8000, socket }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [pairs, setPairs] = useState([]);
@@ -91,26 +95,15 @@ export function RotatingMessages({ interval = 8000, socket }) {
                 justifyContent: "center",
                 alignItems: "center",
                 height: "100%",
-                padding: "12%", // Added padding for spacing
+                padding: "9%", // Added padding for spacing
               }}
             >
-              {msg?.image_url?.endsWith(".pdf") ? (
-                <iframe
-                  key={msg?.id}
-                  // className="message-card-pdf-clali"
-                  src={msg.image_url}
-                  style={{
-                    height: "100%",
-                    width: "100%",
-                    objectFit: "contain",
-                    margin: "none", // Added margin for spacing
-                    overflow: "hidden",
-                  }}
-                ></iframe>
-              ) : (
+              {(
                 <img
-                  src={msg?.image_url}
-                  alt={msg?.title}
+                  src={msg?.image_url || ""}
+                  alt={
+                    msg?.title
+                  }
                   style={{
                     height: "100%",
                     width: "100%",
@@ -123,5 +116,46 @@ export function RotatingMessages({ interval = 8000, socket }) {
         })}
       </div>
     </>
+  );
+}
+export default function PdfViewer({ url }) {
+  const canvasRef = useRef();
+
+  useEffect(() => {
+    const renderPDF = async () => {
+      const loadingTask = pdfjsLib.getDocument(url);
+      const pdf = await loadingTask.promise;
+      const page = await pdf.getPage(1);
+
+      const canvas = canvasRef.current;
+      const context = canvas.getContext("2d");
+
+      // קבלת גודל חלון המסך
+      const { innerWidth, innerHeight } = window;
+
+      // התאמת קנבס לגודל החלון
+      const viewport = page.getViewport({ scale: 1 });
+      const scale = Math.min(innerWidth / viewport.width, innerHeight / viewport.height);
+      const scaledViewport = page.getViewport({ scale });
+
+      canvas.width = scaledViewport.width;
+      canvas.height = scaledViewport.height;
+
+      const renderContext = {
+        canvasContext: context,
+        viewport: scaledViewport,
+      };
+
+      await page.render(renderContext).promise;
+    };
+
+    renderPDF();
+  }, [url]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
+    />
   );
 }

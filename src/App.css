@@ -77,6 +77,10 @@ select {
 .major-year-input {
   grid-area: major;
 }
+.text-input {
+  display: flex;
+  gap: 13px;
+}
 
 .message-input {
   grid-area: message;
@@ -409,7 +413,7 @@ h3 {
   position: relative; /* מאפשר מיקום יחסי של האלמנטים */
   overflow: hidden;
 }
-.message-card-pdf-clali{
+.message-card-pdf-clali {
   /* aspect-ratio: 1 / 1.5;  */
   max-height: 95vh;
   height: 100%;

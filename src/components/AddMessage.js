@@ -25,6 +25,7 @@ const AddMessage = () => {
 
   const [formData, setFormData] = useState({
     destination_date: formatDate(new Date()), // תאריך ברירת מחדל: היום
+    author_name:"",
     major_id: 1,
     study_year_id: 1,
     message_text: "",
@@ -40,6 +41,7 @@ const AddMessage = () => {
         destination_date: existingMessage.destination_date
           ? formatDate(new Date(existingMessage.destination_date))
           : formatDate(new Date()),
+          author_name: existingMessage.author_name || "",
         major_id: existingMessage.major_id || 1,
         study_year_id: existingMessage.study_year_id || 1,
         message_text: existingMessage.message_text || "",
@@ -128,6 +130,7 @@ const AddMessage = () => {
     const method = existingMessage ? "PUT" : "POST";
     const transformedFormData = {
       destination_date: formData.destination_date,
+      author_name: formData.author_name,
       major_id: parseInt(formData.major_id, 10),
       study_year_id: parseInt(formData.study_year_id, 10),
       message_text: formData.message_text,
@@ -141,17 +144,22 @@ const AddMessage = () => {
 
     // console.log(JSON.stringify(transformedFormData));
     if (formData.image_path) {
-      const uploadResponse = await fetch(`${url}/upload_image`, {
-        method: method,
-        body: formDataToSend,
-      });
-
-      if (!uploadResponse.ok) {
-        throw new Error("Failed to upload the image");
+      try {
+        const uploadResponse = await fetch(`${url}/upload_image`, {
+          method: method,
+          body: formDataToSend,
+        });
+        const uploadResult = await uploadResponse.json();
+        transformedFormData.image_path = uploadResult.filePath; // Update the image_path with the file path from the server
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "שגיאה בהעלאת התמונה",
+          text: error.message || "אירעה שגיאה במהלך העלאת התמונה. נסה שוב.",
+          confirmButtonText: "אישור",
+        });
       }
 
-      const uploadResult = await uploadResponse.json();
-      transformedFormData.image_path = uploadResult.filePath; // Update the image_path with the file path from the server
       // console.log(`uploading image to ${url}/upload_image`);
     }
     fetch(url, {
@@ -180,6 +188,7 @@ const AddMessage = () => {
         }).then(() =>
           setFormData({
             destination_date: formatDate(new Date()),
+            author_name: "",
             major_id: 1,
             study_year_id: 1,
             message_text: "",
@@ -213,6 +222,17 @@ const AddMessage = () => {
             onChange={handleChange}
             required
           />
+          <div className="text-input">
+            <label htmlFor="author_name">שם הכותבת:</label>
+            <input
+              type="text"
+              id="author_name"
+              name="author_name"
+              value={formData.author_name}
+              onChange={handleChange}
+              required
+            />
+          </div>
           <div className="selects">
             <SelectInput
               label="מגמה"
