@@ -69,10 +69,10 @@ export function RotatingMessages({ interval = 8000, socket }) {
       <div
         style={{
           display: "flex",
-          justifyContent: "space-evenly",
+          justifyContent: "center",
           alignItems: "center",
-          height: "100%",
-          gap: "20px",
+          height: "100vh",
+          gap: "5px",
           overflow: "hidden",
         }}
       >
@@ -90,7 +90,8 @@ export function RotatingMessages({ interval = 8000, socket }) {
                 // flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
-                padding: "10px", // Added padding for spacing
+                height: "100%",
+                padding: "12%", // Added padding for spacing
               }}
             >
               {msg?.image_url?.endsWith(".pdf") ? (
@@ -99,10 +100,11 @@ export function RotatingMessages({ interval = 8000, socket }) {
                   // className="message-card-pdf-clali"
                   src={msg.image_url}
                   style={{
-                    Height: "100%",
-                    Width: "100%",
+                    height: "100%",
+                    width: "100%",
                     objectFit: "contain",
                     margin: "none", // Added margin for spacing
+                    overflow: "inherit"
                   }}
                 ></iframe>
               ) : (
