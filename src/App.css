@@ -79,7 +79,11 @@ select {
 }
 .text-input {
   display: flex;
-  gap: 13px;
+  justify-content: space-between;
+  width: 90%;
+}
+.text-input input {
+  margin-left: 0;
 }
 
 .message-input {
