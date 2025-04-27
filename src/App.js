@@ -42,7 +42,9 @@ function App() {
         </Route>
         <Route path="/screen1" element={<Screen screenNum={1} socket={socket}/>} />
         <Route path="/screen2" element={<Screen screenNum={2} socket={socket}/>} />
-        <Route path="/screen3" element={<RotatingMessages socket={socket}/>} />
+        <Route path="/screen3" element={<RotatingMessages major_id={1} socket={socket}/>} />
+        <Route path="/screen4" element={<RotatingMessages major_id={100} socket={socket}/>} />
+
         <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
     </>
@@ -78,6 +80,9 @@ const Layout = () => {
         </NavLink>
         <NavLink to="/screen3" style={style}>
           מסך הודעות כלליות
+        </NavLink>
+        <NavLink to="/screen4" style={style}>
+          מסך חדר אוכל
         </NavLink>
       </nav>
       {/* <NavLink

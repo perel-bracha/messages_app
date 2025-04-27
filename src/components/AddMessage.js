@@ -25,7 +25,7 @@ const AddMessage = () => {
 
   const [formData, setFormData] = useState({
     destination_date: formatDate(new Date()), // תאריך ברירת מחדל: היום
-    author_name:"",
+    author_name: "",
     major_id: 1,
     study_year_id: 1,
     message_text: "",
@@ -41,7 +41,7 @@ const AddMessage = () => {
         destination_date: existingMessage.destination_date
           ? formatDate(new Date(existingMessage.destination_date))
           : formatDate(new Date()),
-          author_name: existingMessage.author_name || "",
+        author_name: existingMessage.author_name || "",
         major_id: existingMessage.major_id || 1,
         study_year_id: existingMessage.study_year_id || 1,
         message_text: existingMessage.message_text || "",
@@ -106,7 +106,13 @@ const AddMessage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.major_id !== 1 && formData.message_text.trim() === "") {
+    if (
+      formData.major_id !== 1 &&
+      formData.major_id !== 100 &&
+      formData.message_text.trim() === ""
+    ) {
+      console.log(formData.major_id);
+      
       Swal.fire({
         icon: "warning",
         title: "שגיאה",

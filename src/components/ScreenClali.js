@@ -5,7 +5,7 @@ import pdfjsWorker from "pdfjs-dist/legacy/build/pdf.worker.entry";
 
 // הגדרת ה-worker
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
-export function RotatingMessages({ interval = 8000, socket }) {
+export function RotatingMessages({major_id, interval = 8000, socket }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [pairs, setPairs] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -26,7 +26,7 @@ export function RotatingMessages({ interval = 8000, socket }) {
   }, []);
   useEffect(() => {
     const fetchMessages = () => {
-      fetch(`${process.env.REACT_APP_SERVER_URL}/majors/1/messages/relevant`)
+      fetch(`${process.env.REACT_APP_SERVER_URL}/majors/${major_id}/messages/relevant`)
         .then((response) => response.json())
         .then((data) => setMessages(data))
         .catch((error) => console.error(error));
