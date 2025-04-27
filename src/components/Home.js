@@ -61,6 +61,17 @@ export function Home() {
             <div className="screen-overlay">מסך הודעות כלליות</div>
           </div>
         </Link>
+        <Link to="/screen4" className="screen-link">
+          <div className="screen-preview-wrapper">
+            <iframe
+              src="/screen4"
+              title="Screen 4"
+              className="screen-preview"
+              style={{ pointerEvents: "none" }}
+            ></iframe>
+            <div className="screen-overlay">מסך חדר אוכל</div>
+          </div>
+        </Link>
       </div>
     </div>
   );
