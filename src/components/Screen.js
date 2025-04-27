@@ -5,8 +5,23 @@ import { useNavigate } from "react-router-dom";
 export function Screen({ screenNum, socket }) {
   const [majors, setMajors] = useState([]);
   const [messagesByMajor, setMessagesByMajor] = useState({});
+  const [day, setDay] = useState(0); // מצב לשמירת היום הנוכחי
   const colors = ["#376143", "#A3B18A"]; // צבעים לסירוגין לרקע שם מגמה
   const fontColors = ["white", "#376143"];
+
+  const lastDateRef = useRef(new Date().toDateString());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const currentDate = new Date().toDateString();
+      if (currentDate !== lastDateRef.current) {
+        lastDateRef.current = currentDate;
+        setDay((prev) => prev++);
+      }
+    }, 600 * 1000); // בדיקה כל דקה
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/majors/screen/${screenNum}`)
@@ -40,9 +55,9 @@ export function Screen({ screenNum, socket }) {
         fetchMessages(); // קריאה מחדש של כל ההודעות
       });
     }
-  }, [socket, majors]);
+  }, [socket, majors, day]);
   // console.log(messagesByMajor, messagesByMajor[0]);
-const navigate=useNavigate();
+  const navigate = useNavigate();
   return (
     <>
       <div style={{ position: "absolute", top: "10px", left: "10px" }}>
@@ -146,14 +161,10 @@ function OneImage({ msg }) {
     ></div>
   );
 }
-function OnePDF({msg}){
-return (
-  <iframe
-    className="message-card-pdf"
-    src={msg.image_url}
-    
-  ></iframe>
-);
+function OnePDF({ msg }) {
+  console.log(msg.image_url, `pdf`);
+
+  return <iframe className="message-card-pdf" src={msg.image_url}></iframe>;
 }
 function OneMessage({ msg }) {
   const textRef = useRef();
@@ -190,7 +201,9 @@ function OneMessage({ msg }) {
         className="message-background"
       />
       <div className="message-content">
-        <div className="message-date">{hebrewDate(msg.message_date)}/ לשנה {msg.study_year_name}</div>
+        <div className="message-date">
+          {hebrewDate(msg.message_date)}/ לשנה {msg.study_year_name}
+        </div>
         {/* <div className="message-year">לשנה {msg.study_year_name}</div> */}
         <div className="message-text" ref={textRef}>
           {msg.message_text}

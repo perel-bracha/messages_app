@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf";
-import pdfjsWorker from 'pdfjs-dist/legacy/build/pdf.worker.entry';
+import pdfjsWorker from "pdfjs-dist/legacy/build/pdf.worker.entry";
 
 // הגדרת ה-worker
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
@@ -9,6 +9,21 @@ export function RotatingMessages({ interval = 8000, socket }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [pairs, setPairs] = useState([]);
   const [messages, setMessages] = useState([]);
+  const [day, setDay] = useState(0); // מצב לשמירת היום הנוכחי
+
+  const lastDateRef = useRef(new Date().toDateString());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const currentDate = new Date().toDateString();
+      if (currentDate !== lastDateRef.current) {
+        lastDateRef.current = currentDate;
+        setDay((prev) => prev++);
+      }
+    }, 600 * 1000); // בדיקה כל דקה
+
+    return () => clearInterval(interval);
+  }, []);
   useEffect(() => {
     const fetchMessages = () => {
       fetch(`${process.env.REACT_APP_SERVER_URL}/majors/1/messages/relevant`)
@@ -21,7 +36,7 @@ export function RotatingMessages({ interval = 8000, socket }) {
       // console.log("Message Event Received:", data);
       fetchMessages(); // קריאה מחדש של כל ההודעות
     });
-  }, [socket]);
+  }, [socket, day]);
 
   useEffect(() => {
     const groupedMessages = [];
@@ -98,19 +113,17 @@ export function RotatingMessages({ interval = 8000, socket }) {
                 padding: "9%", // Added padding for spacing
               }}
             >
-              {(
+              {
                 <img
                   src={msg?.image_url || ""}
-                  alt={
-                    msg?.title
-                  }
+                  alt={msg?.title}
                   style={{
                     height: "100%",
                     width: "100%",
                     objectFit: "contain",
                   }}
                 />
-              )}
+              }
             </div>
           );
         })}
@@ -135,7 +148,10 @@ export default function PdfViewer({ url }) {
 
       // התאמת קנבס לגודל החלון
       const viewport = page.getViewport({ scale: 1 });
-      const scale = Math.min(innerWidth / viewport.width, innerHeight / viewport.height);
+      const scale = Math.min(
+        innerWidth / viewport.width,
+        innerHeight / viewport.height
+      );
       const scaledViewport = page.getViewport({ scale });
 
       canvas.width = scaledViewport.width;
