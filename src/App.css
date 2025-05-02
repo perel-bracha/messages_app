@@ -35,6 +35,14 @@
 form > div {
   margin-bottom: 15px;
 }
+label{
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: large;
+  display: flex;
+  justify-content: space-between;
+}
 
 .myLabel {
   display: block;
@@ -44,6 +52,7 @@ form > div {
   display: flex;
   justify-content: space-between;
 }
+
 
 
 input,
