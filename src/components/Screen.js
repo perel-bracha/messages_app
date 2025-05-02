@@ -127,9 +127,12 @@ export function Screen({ screenNum, socket }) {
               style={{
                 backgroundColor: colors[index % 2],
                 color: fontColors[0],
+                whiteSpace: "pre-line",
               }}
             >
-              {major.major_name}
+              {major.major_name === "אמנות"
+                ? "אמנות\nעיצוב תעשיתי"
+                : major.major_name}
             </div>
             <div className="major-messages">
               {messagesByMajor[major.major_id]?.map((msg) =>
