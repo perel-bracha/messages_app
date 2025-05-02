@@ -112,7 +112,7 @@ const AddMessage = () => {
       formData.message_text.trim() === ""
     ) {
       console.log(formData.major_id);
-      
+
       Swal.fire({
         icon: "warning",
         title: "שגיאה",
@@ -228,17 +228,20 @@ const AddMessage = () => {
             onChange={handleChange}
             required
           />
+          <div className="selects">
           <div className="text-input">
-            <label htmlFor="author_name">שם הכותבת:</label>
-            <input
-              type="text"
-              id="author_name"
-              name="author_name"
-              value={formData.author_name}
-              onChange={handleChange}
-              required
-            />
-          </div>
+            <div className="myLabel">
+              <label htmlFor="author_name">שם הכותבת:</label>
+              <input
+                className="myInput"
+                type="text"
+                id="author_name"
+                name="author_name"
+                value={formData.author_name}
+                onChange={handleChange}
+                required
+              />
+          </div></div></div>
           <div className="selects">
             <SelectInput
               label="מגמה"

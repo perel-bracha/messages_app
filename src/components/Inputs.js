@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { hebrewDate } from "./Screen";
 
-
 export const TextAreaInput = ({
   label,
   name,
@@ -10,25 +9,23 @@ export const TextAreaInput = ({
   required = false,
 }) => (
   <div style={{ maxWidth: "100%" }}>
-      <textarea
-        placeholder="הקלידי כאן את ההודעה"
-        name={name}
-        value={value}
-        onChange={onChange}
-        required={required}
-        rows="8"
-        style={{
-          fontSize: "20px",
-          width: "100%",
-          maxWidth: "100%",
-          boxSizing: "border-box",
-          border: "2px solid #376143",
-        }}
-        
-      />
+    <textarea
+      placeholder="הקלידי כאן את ההודעה"
+      name={name}
+      value={value}
+      onChange={onChange}
+      required={required}
+      rows="8"
+      style={{
+        fontSize: "20px",
+        width: "100%",
+        maxWidth: "100%",
+        boxSizing: "border-box",
+        border: "2px solid #376143",
+      }}
+    />
   </div>
 );
-
 
 // Subcomponent for date input
 export const DateInput = ({
@@ -38,24 +35,19 @@ export const DateInput = ({
   onChange,
   required = false,
 }) => {
-
   return (
     <div className="date-input">
-      <label>
-        {label}:
-        <input
-          type="date"
-          name={name}
-          value={value}
-          onChange={onChange}
-          required={required}
-        />
-      </label>
-      {value && (
-        <p className="hebrewLabel" >
-          תאריך עברי: {hebrewDate(value)}
-        </p>
-      )}
+      
+      <label className="myLabel">{label}: </label>
+
+      <input
+        type="date"
+        name={name}
+        value={value}
+        onChange={onChange}
+        required={required}
+      />
+      {value && <p className="hebrewLabel">תאריך עברי: {hebrewDate(value)}</p>}
     </div>
   );
 };
@@ -70,17 +62,16 @@ export const SelectInput = ({
   required = false,
 }) => (
   <div className="select-input-box">
-    <label>
-      {label}:
-      <select name={name} value={value} onChange={onChange} required={required}>
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-    </label>
-  </div>
+    <div className="myLabel">
+    <label>{label}:</label>
+    <select name={name} value={value} onChange={onChange} required={required}>
+      {options.map((option) => (
+        <option key={option.value} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </select>
+  </div></div>
 );
 
 export const DragAndDropFileInput = ({ label, name, onChange }) => {
@@ -122,7 +113,7 @@ export const DragAndDropFileInput = ({ label, name, onChange }) => {
 
   return (
     <div
-    className="drag-and-drop"
+      className="drag-and-drop"
       onDrop={handleDrop}
       onDragOver={handleDragOver}
       style={{
@@ -152,7 +143,12 @@ export const DragAndDropFileInput = ({ label, name, onChange }) => {
       />
       <label
         htmlFor={`file-input-${name}`}
-        style={{ cursor: "pointer", color: "#376143", textAlign: "center", display: "block" }}
+        style={{
+          cursor: "pointer",
+          color: "#376143",
+          textAlign: "center",
+          display: "block",
+        }}
       >
         סייר הקבצים
       </label>
@@ -182,46 +178,60 @@ export const DragAndDropFileInput = ({ label, name, onChange }) => {
   );
 };
 
-
-
 // Modified BackgroundSelector to set the initial value
-export const BackgroundSelector = ({ label, name, value, onChange, backgrounds }) => {
-    // Set the initial value if not already set
-    if (!value && backgrounds.length > 0) {
-        onChange({ target: { name, value: String(backgrounds[0].background_id) } });
-    }
+export const BackgroundSelector = ({
+  label,
+  name,
+  value,
+  onChange,
+  backgrounds,
+}) => {
+  // Set the initial value if not already set
+  if (!value && backgrounds.length > 0) {
+    onChange({ target: { name, value: String(backgrounds[0].background_id) } });
+  }
 
-    return (
-        <div className="background-selector">
-            <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", alignSelf: "center" }}>
-                {backgrounds.map((background) => (
-                    <div key={background.background_id} style={{ textAlign: "center" }}>
-                        <input
-                            type="radio"
-                            id={`background-${background.background_id}`}
-                            name={name}
-                            value={background.background_id} // השתמש ב-background_id כערך
-                            checked={value === String(background.background_id)} // בדוק אם הערך תואם
-                            onChange={onChange}
-                            style={{ display: "none" }} // הסתר את תיבת הסימון
-                        />
-                            <label htmlFor={`background-${background.background_id}`}>
-                            <img
-                                src={background.background_url}
-                                alt={background.background_name}
-                                style={{
-                                    width: "100px",
-                                    height: "100px",
-                                    objectFit: "cover",
-                                    border: value === String(background.background_id) ? "3px solid #376143" : "0px solid",
-                                    borderRadius: "5px",
-                                }}
-                            />
-                        </label>
-                        <div>{background.background_name}</div>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
+  return (
+    <div className="background-selector">
+      <div
+        style={{
+          display: "flex",
+          gap: "10px",
+          flexWrap: "wrap",
+          alignSelf: "center",
+        }}
+      >
+        {backgrounds.map((background) => (
+          <div key={background.background_id} style={{ textAlign: "center" }}>
+            <input
+              type="radio"
+              id={`background-${background.background_id}`}
+              name={name}
+              value={background.background_id} // השתמש ב-background_id כערך
+              checked={value === String(background.background_id)} // בדוק אם הערך תואם
+              onChange={onChange}
+              style={{ display: "none" }} // הסתר את תיבת הסימון
+            />
+            <label htmlFor={`background-${background.background_id}`}>
+              <img
+                src={background.background_url}
+                alt={background.background_name}
+                style={{
+                  width: "100px",
+                  height: "100px",
+                  objectFit: "cover",
+                  border:
+                    value === String(background.background_id)
+                      ? "3px solid #376143"
+                      : "0px solid",
+                  borderRadius: "5px",
+                }}
+              />
+            </label>
+            <div>{background.background_name}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
