@@ -185,7 +185,7 @@ export function RotatingMessages({ major_id, interval = 8000, socket }) {
   const lastDateRef = useRef(new Date().toDateString());
   const navigate = useNavigate();
   // 4. הגדרת שתי אפשרויות להשהייה (במילישניות)
-  const INTERVAL_OPTIONS = [15000, 8000];
+  const INTERVAL_OPTIONS = [20000, 10000];
   // אם רוצים להעביר מה־props, אפשר לקרוא כאן props כמו defaultInterval, ולקבוע את הערך ההתחלתי בהתאם אליו.
   const [intervalValue, setIntervalValue] = useState(interval);
   // מצב התצוגה: 'single' או 'pair'
