@@ -187,7 +187,7 @@ export function RotatingMessages({ major_id, interval = 8000, socket }) {
   // 4. הגדרת שתי אפשרויות להשהייה (במילישניות)
   const INTERVAL_OPTIONS = [20000, 10000];
   // אם רוצים להעביר מה־props, אפשר לקרוא כאן props כמו defaultInterval, ולקבוע את הערך ההתחלתי בהתאם אליו.
-  const [intervalValue, setIntervalValue] = useState(interval);
+  const [intervalValue, setIntervalValue] = useState(20000);
   // מצב התצוגה: 'single' או 'pair'
   const [displayMode, setDisplayMode] = useState("single");
 
