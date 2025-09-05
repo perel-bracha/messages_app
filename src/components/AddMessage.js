@@ -24,6 +24,7 @@ const AddMessage = () => {
   // console.log(existingMessage, "existingMessage");
 
   const [formData, setFormData] = useState({
+    from_date: formatDate(new Date()), // תאריך ברירת מחדל: היום
     destination_date: formatDate(new Date()), // תאריך ברירת מחדל: היום
     author_name: "",
     major_id: 1,
@@ -38,6 +39,9 @@ const AddMessage = () => {
   useEffect(() => {
     if (existingMessage) {
       setFormData({
+        from_date: existingMessage.from_date
+          ? formatDate(new Date(existingMessage.from_date))
+          : formatDate(new Date()),
         destination_date: existingMessage.destination_date
           ? formatDate(new Date(existingMessage.destination_date))
           : formatDate(new Date()),
@@ -135,6 +139,7 @@ const AddMessage = () => {
 
     const method = existingMessage ? "PUT" : "POST";
     const transformedFormData = {
+      from_date: formData.from_date,
       destination_date: formData.destination_date,
       author_name: formData.author_name,
       major_id: parseInt(formData.major_id, 10),
@@ -193,6 +198,7 @@ const AddMessage = () => {
           confirmButtonText: "אישור",
         }).then(() =>
           setFormData({
+            from_date: formatDate(new Date()),
             destination_date: formatDate(new Date()),
             author_name: "",
             major_id: 1,
@@ -221,6 +227,13 @@ const AddMessage = () => {
       {/* <h1>הוספת הודעה</h1> */}
       <form onSubmit={handleSubmit} className="form-container">
         <div className="major-year-input">
+          <DateInput
+            label="מתאריך"
+            name="from_date"
+            value={formData.from_date}
+            onChange={handleChange}
+            required
+          />
           <DateInput
             label="עד תאריך"
             name="destination_date"

@@ -229,45 +229,52 @@ export function MessagesList() {
                 ></div>
               </th>
               <th>
-                תאריך יעד
+                תאריך התחלה
                 <div
                   className="resize-handle"
                   onMouseDown={(e) => handleColumnResize(e, 3)}
                 ></div>
               </th>
               <th>
-                מגמה
+                תאריך יעד
                 <div
                   className="resize-handle"
                   onMouseDown={(e) => handleColumnResize(e, 4)}
                 ></div>
               </th>
               <th>
-                שנה
+                מגמה
                 <div
                   className="resize-handle"
                   onMouseDown={(e) => handleColumnResize(e, 5)}
                 ></div>
               </th>
               <th>
-                טקסט
+                שנה
                 <div
                   className="resize-handle"
                   onMouseDown={(e) => handleColumnResize(e, 6)}
                 ></div>
               </th>
               <th>
-                קובץ
+                טקסט
                 <div
                   className="resize-handle"
                   onMouseDown={(e) => handleColumnResize(e, 7)}
                 ></div>
               </th>
               <th>
+                קובץ
+                <div
+                  className="resize-handle"
+                  onMouseDown={(e) => handleColumnResize(e, 8)}
+                ></div>
+              </th>
+              <th>
                 כותבת
                 <div
                   className="resize-handle"
-                  onMouseDown={(e) => handleColumnResize(e, 7)}
+                  onMouseDown={(e) => handleColumnResize(e, 9)}
                 ></div>
               </th>
             </tr>
@@ -297,6 +304,10 @@ export function MessagesList() {
                   {new Date(message.message_date).toLocaleDateString()}{" "}
                   {new Date(message.message_date).toLocaleTimeString()}{" "}
                   {hebrewDate(message.message_date)}
+                </td>
+                <td>
+                  {new Date(message.from_date).toLocaleDateString()}{" "}
+                  {hebrewDate(message.from_date)}
                 </td>
                 <td>
                   {new Date(message.destination_date).toLocaleDateString()}{" "}
